@@ -1,6 +1,7 @@
 from django.http import HttpRequest
 from django.shortcuts import render
 from .forms import PhotoForm
+from .models import Composer, Composition
 
 from PIL import Image
 
@@ -19,6 +20,7 @@ def recognize(request: HttpRequest):
     photo_form = PhotoForm(request.POST, request.FILES)
     if not photo_form.is_valid():
         pass  # TODO: error
+        print(photo_form.errors)
         raise NotImplementedError("non-valid")
 
     image_field = photo_form.cleaned_data['photo']
@@ -35,5 +37,11 @@ def recognize(request: HttpRequest):
         return render(request, 'composers/%s' % composer_id)
 
 
-def composers(request: HttpRequest, composer_id: int):
-    raise NotImplementedError("make a result page")
+def composer(request: HttpRequest, composer_id: int):
+    comp = Composer.objects.get(pk=composer_id)
+    compositions = Composition.objects.filter(author=comp)
+    return render(request, 'composer.html',
+                  {'name': comp.name,
+                   'biography': comp.bio,
+                   'photo': comp.photo,
+                   'compositions': compositions})

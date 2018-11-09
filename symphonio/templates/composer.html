@@ -1,8 +1,25 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
-<div class="row">
-    {%%}
-    <img src="">
-</div>
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+
+            <img src="/media/{{ photo }}" width="40%">
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <h1>{{ name }}</h1>
+        </div>
+        <div class="col-sm-12">
+            {{ biography }}
+        </div>
+        {% if compostitons %}
+            <div class="col-sm-12">
+                {% for composition in compositions %}
+
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
