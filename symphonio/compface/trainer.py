@@ -1,18 +1,22 @@
 import face_recognition
+from .models import ComposerRecognitionData, Composer
+from .recognize import known_faces, ids
 import pickle
-import dlib
-# import cv2
+import numpy
 
 
-def train(composer_connections):
-    train_data = []
-    for (filename, id) in composer_connections:
-        loaded_image = face_recognition.load_image_file(filename)
-        encoding = face_recognition.face_encodings(loaded_image)
-        try:
-            train_data.append((encoding[0], id))
-        except IndexError:
-            print("Could not get face from " + filename + " of " + str(id))
-    file = open("train_data", "wb")
-    pickle.dump(train_data, file)
-    file.close()
+def add_composer_encoding(id, image):
+    """
+    Raises FaceNotFound exception
+    """
+    image = numpy.array(image)
+    try:
+        encoding = face_recognition.face_encodings(image)[0]
+    except IndexError:
+        print("Could not find any face")
+        return
+    composer = Composer.objects.get(pk=id)
+    composer_encoded = ComposerRecognitionData.objects.create(composer=composer, data=pickle.dumps(encoding))
+    composer_encoded.save()
+    known_faces.append(encoding)
+    ids.append(id)
