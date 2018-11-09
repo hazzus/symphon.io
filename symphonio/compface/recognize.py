@@ -4,7 +4,7 @@ import face_recognition
 from PIL import Image
 import io
 import numpy
-from compface.models import ComposerRecognitionData
+from .models import ComposerRecognitionData
 
 composers = ComposerRecognitionData.objects.all()
 known_faces = []
@@ -22,10 +22,6 @@ def recognize_from_bytes(bytearray: [bytes]):
 def recognize_image(pil_image: Image.Image) -> [int]:
     image_encoding = numpy.array(pil_image)
     face_encodings = face_recognition.face_encodings(image_encoding)
-
-    global known_faces
-    global ids
-
     result = []
     for encoding in face_encodings:
         recognized = face_recognition.compare_faces(known_faces, encoding)
