@@ -22,3 +22,5 @@ urlpatterns = [
     path('parse_test', include('concert_parser.urls')),
     url('', include('compface.urls'))
 ]
+
+import symphonio.background_jobs
