@@ -1,0 +1,16 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-12" id="info">
+        Распознаватель Композиторов 3000, просто попробуй!
+    </div>
+</div>
+<div class="row" id="buttons">
+    <form>
+        {% csrf_token %}
+        {{ form }}
+    </form>
+</div>
+{% endblock %}
