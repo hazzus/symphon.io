@@ -26,7 +26,7 @@ $("#showCameraButton").click(function () {
     if (cam.is(":hidden")) {
         $("#showCameraButton").hide();
         cam.slideDown();
-        $("#takeShot").slideDown();
+        $("#takeShot").slideUp();
         getStream();
     }
 });
