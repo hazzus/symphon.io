@@ -1,3 +1,9 @@
 from django.test import TestCase
+import symphonio.compface.recognize as recognize
 
-# Create your tests here.
+
+class FaceRecognitionTestCase(TestCase):
+
+    def test_DiCaprio_is_recognized(self):
+        result = recognize.recognize("dicaprio2")
+        self.assertEqual(result, True)
