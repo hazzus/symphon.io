@@ -7,9 +7,11 @@ import numpy
 
 
 def recognize(bytes):
+    face_recognition.load_image_file("img/Чайковский_2.jpg")
     image = Image.open(io.BytesIO(bytes))
-    image_encoding = numpy.asarray(image)
+    image_encoding = numpy.array(image)
     face_encodings = face_recognition.face_encodings(image_encoding)
+
     file = open("train_data", "rb")
     train_data = pickle.load(file)
     file.close()
@@ -23,4 +25,5 @@ def recognize(bytes):
         for i in range(len(recognized)):
             if recognized[i]:
                 result.append(ids[i])
+                break
     return result
