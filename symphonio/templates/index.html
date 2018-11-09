@@ -6,10 +6,38 @@
         Распознаватель Композиторов 3000, просто попробуй!
     </div>
 </div>
-<div class="row" id="buttons">
-    <form>
-        {% csrf_token %}
-        {{ form.photo }}
-    </form>
+<div class="row d-lg-none" id="cameraThings">
+    <div class="col-12">
+        <video autoplay id="camera" class="col-12"></video>
+    </div>
+    <div class="col-12">
+        <div class="form-group row" align="center">
+            <div class="col-3"></div>
+            <select class="form-control col-6" id="cameraSelect"></select>
+        </div>
+    </div>
 </div>
+<div class="row" id="buttons">
+    <div class="col-sm-12">
+        <form method="post" action="/recognize" id="form">
+            {% csrf_token %}
+            <div class="row">
+                <div class="form-group col-lg-4 d-none d-lg-block"></div>
+                <div class="col-sm-12 col-md-6 d-lg-none">
+                    <button class="form-group btn btn-primary col-12" type="button" id="showCameraButton">Take a photo
+                    </button>
+                    <button class="form-group btn btn-danger col-12" type="button" id="takeShot">Take shot</button>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                    <label class="btn btn-warning col-12" id="photoField">
+                        {{ form.photo }}
+                        Загрузить фото
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% load static %}
+<script src="{% static 'working.js' %}"></script>
 {% endblock %}
