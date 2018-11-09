@@ -19,7 +19,7 @@
 </div>
 <div class="row" id="buttons">
     <div class="col-sm-12">
-        <form method="post" action="/recognize" id="form">
+        <form method="post" action="/recognize/" id="form" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row">
                 <div class="form-group col-lg-4 d-none d-lg-block"></div>
@@ -39,5 +39,5 @@
     </div>
 </div>
 {% load static %}
-<script src="{% static 'working.js' %}"></script>
+<script src="{% static 'js/index.js' %}"></script>
 {% endblock %}

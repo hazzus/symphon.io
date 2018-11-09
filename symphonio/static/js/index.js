@@ -1,10 +1,20 @@
 $("#photoField").change(function () {
-    $("#form").submit();
+    form.submit();
 });
 
-var takeShot = $("#takeShot");
+const form = $("#form")
+const takeShot = $("#takeShot");
+
 takeShot.click(function () {
-    // TODO
+    let canvas = document.createElement("canvas");
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d')
+        .drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    console.log(canvas.toDataURL());
+    $("#id_photo").src = canvas.toDataURL();
+    form.submit();
 });
 
 const cam = $("#cameraThings");
@@ -16,7 +26,7 @@ $("#showCameraButton").click(function () {
     if (cam.is(":hidden")) {
         $("#showCameraButton").hide();
         cam.slideDown();
-        $("#takeShot").slideDown();
+        $("#takeShot").slideUp();
         getStream();
     }
 });
