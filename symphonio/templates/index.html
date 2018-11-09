@@ -21,6 +21,7 @@
     <div class="col-sm-12">
         <form method="post" action="/recognize" id="form" enctype="multipart/form-data">
             {% csrf_token %}
+            {{ form.data }}
             <div class="row">
                 <div class="form-group col-lg-4 d-none d-lg-block"></div>
                 <div class="col-sm-12 col-md-6 d-lg-none">

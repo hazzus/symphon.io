@@ -20,21 +20,23 @@ def recognize(request: HttpRequest):
     photo_form = PhotoForm(request.POST, request.FILES)
     if not photo_form.is_valid():
         pass  # TODO: error
-        print(photo_form.errors)
         raise NotImplementedError("non-valid")
-
-    image_field = photo_form.cleaned_data['photo']
-    image: Image.Image = Image.open(image_field)
-    result_set = recognize_image(image)
-    if not result_set:
-        raise NotImplementedError("can't recognize anything")
-    elif len(result_set) > 1:
-        raise NotImplementedError("recognized too much")
-    else:
-        assert len(result_set) == 1
-        composer_id = result_set[0]
-        # TODO: maybe check that composer_id exists in the database
-        return render(request, 'composers/%s' % composer_id)
+    if 'photo' in request.FILES:
+        image_field = photo_form.cleaned_data['photo']
+        image: Image.Image = Image.open(image_field)
+        result_set = recognize_image(image)
+        if not result_set:
+            raise NotImplementedError("can't recognize anything")
+        elif len(result_set) > 1:
+            raise NotImplementedError("recognized too much")
+        else:
+            assert len(result_set) == 1
+            composer_id = result_set[0]
+            # TODO: maybe check that composer_id exists in the database
+            return render(request, 'composers/%s' % composer_id)
+    elif 'data' in photo_form.cleaned_data:
+        recognize_image()
+        # TODO from dara url to face recognition
 
 
 def composer(request: HttpRequest, composer_id: int):
