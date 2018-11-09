@@ -1,7 +1,6 @@
 import face_recognition
 import pickle
-import dlib
-# import cv2
+from symphonio.compface.models import ComposerRecognitionData
 
 
 def train(composer_connections):
@@ -16,3 +15,13 @@ def train(composer_connections):
     file = open("train_data", "wb")
     pickle.dump(train_data, file)
     file.close()
+
+
+def add_composer_encoding(id, image):
+    """
+    Raises FaceNotFound exception
+    """
+    encoding = face_recognition.face_encodings(image)
+    composer = ComposerRecognitionData.objects.create(composer=id, data=encoding)
+    ComposerRecognitionData.objects.add()
+
