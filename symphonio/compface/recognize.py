@@ -1,17 +1,17 @@
 import pickle
 
 import face_recognition
-import PIL.Image as Image
+from PIL import Image
 import io
 import numpy
 
 
-def recognize(bytes):
-    image = Image.open(io.BytesIO(bytes))
-    return recognize_PIL(image)
+def recognize_from_bytes(bytearray: [bytes]):
+    image = Image.open(io.BytesIO(bytearray))
+    return recognize_image(image)
 
 
-def recognize_PIL(pil_image):
+def recognize_image(pil_image: Image.Image) -> [int]:
     image_encoding = numpy.array(pil_image)
     face_encodings = face_recognition.face_encodings(image_encoding)
 
