@@ -5,6 +5,9 @@ from PIL import Image
 import io
 import numpy
 from .models import ComposerRecognitionData
+from binascii import a2b_base64
+
+urldataprefix = "data:image/png;base64"
 
 composers = ComposerRecognitionData.objects.all()
 known_faces = []
@@ -30,3 +33,11 @@ def recognize_image(pil_image: Image.Image) -> [int]:
                 result.append(ids[i])
                 break
     return result
+
+
+def recognize_url_image(url_image: str) -> [int]:
+    if not url_image.startswith(urldataprefix):
+        print('Unsupported datatype exception')
+        return
+    binary_data = a2b_base64(url_image[len(urldataprefix):])
+    return recognize_from_bytes(binary_data)

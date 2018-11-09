@@ -23,4 +23,5 @@ urlpatterns = [
     url('', include('compface.urls'))
 ]
 
-#import symphonio.background_jobs
+# import symphonio.background_jobs
+
