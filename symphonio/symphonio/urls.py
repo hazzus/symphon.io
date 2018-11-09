@@ -19,6 +19,6 @@ from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('parse_test', include('concert_parser.urls')),
     url('', include('compface.urls'))
-    #path('parse_test', include('concert_parser.urls')),
 ]
