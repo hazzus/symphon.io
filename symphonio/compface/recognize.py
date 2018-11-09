@@ -7,9 +7,12 @@ import numpy
 
 
 def recognize(bytes):
-    face_recognition.load_image_file("img/Чайковский_2.jpg")
     image = Image.open(io.BytesIO(bytes))
-    image_encoding = numpy.array(image)
+    return recognize_PIL(image)
+
+
+def recognize_PIL(pil_image):
+    image_encoding = numpy.array(pil_image)
     face_encodings = face_recognition.face_encodings(image_encoding)
 
     file = open("train_data", "rb")
