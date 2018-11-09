@@ -1,3 +1,4 @@
+from django.http import HttpRequest
 from django.shortcuts import render
 from .forms import PhotoForm
 
@@ -10,7 +11,6 @@ def index(request):
     photo_form = PhotoForm()
     return render(request, 'index.html', {'form': photo_form})
 
-def composer(request, composer_id):
 
 def recognize(request: HttpRequest):
     if request.method != "POST":
