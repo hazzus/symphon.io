@@ -74,5 +74,4 @@ def parse():
                     if composer is not None:
                         res.append(Concert(datetime.datetime(2018, month, dayo, hour, minute), place, url,
                                            "".join(composer.text.strip().split())))
-                        return res
     return res
