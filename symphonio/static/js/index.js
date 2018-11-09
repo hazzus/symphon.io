@@ -1,9 +1,11 @@
 $("#photoField").change(function () {
+    $("#id_data").html("123");
     form.submit();
 });
 
-const form = $("#form")
+const form = $("#form");
 const takeShot = $("#takeShot");
+takeShot.hide();
 
 takeShot.click(function () {
     let canvas = document.createElement("canvas");
