@@ -20,3 +20,8 @@ class Concert(models.Model):
     def __str__(self):
         return 'Concert: of %s at %s, as described: %s' % (
             self.composer, self.place, self.description)
+
+
+class ComposerRecognitionData(models.Model):
+    composer = models.ForeignKey(Composer, on_delete=models.CASCADE)
+    data = models.BinaryField()
