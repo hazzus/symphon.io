@@ -2,7 +2,14 @@
 
 {% block content %}
 <div class="row">
-    {%%}
-    <img src="">
+    <div class="col-sm-12 col-md-6">
+        <img src="{% get_static_prefix %}images/composers/{{id}}.jpg" width="40%">
+    </div>
+    <div class="col-sm-12 col-md-6">
+        {{ name }}
+    </div>
+    <div class="col-sm-12">
+        {{ biography }}
+    </div>
 </div>
 {% endblock %}
