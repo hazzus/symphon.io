@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
 
 {% block content %}
@@ -10,7 +9,7 @@
 <div class="row" id="buttons">
     <form>
         {% csrf_token %}
-        {{ form }}
+        {{ form.photo }}
     </form>
 </div>
 {% endblock %}
