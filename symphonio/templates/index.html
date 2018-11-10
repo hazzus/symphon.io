@@ -3,7 +3,7 @@
 {% block content %}
     <div class="row d-lg-none" id="cameraThings">
         <div class="container">
-            <div class="col-12 text-center mt-2 d-lg-none">Включите камеру, наведите устройство на панно с интересующим
+            <div class="col-12 text-center mt-2 d-lg-none" id="info">Включите камеру, наведите устройство на панно с интересующим
                 композитором и сфотографируйте его ;)
             </div>
             <div class="form-group row" align="center">
@@ -48,7 +48,7 @@
                             </label>
                         </div>
                     </div>
-                    <img class="col-12" src="{% static 'images/many.jpg' %}">
+                    <img class="col-12 d-none d-lg-block" src="{% static 'images/many.jpg' %}">
                 </div>
             </form>
         </div>

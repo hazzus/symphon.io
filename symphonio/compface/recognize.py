@@ -13,12 +13,12 @@ known_faces = []
 ids = []
 
 
-def recognize_from_bytes(bytearray: [bytes]):
+def recognize_from_bytes(bytearray):
     image = Image.open(io.BytesIO(bytearray))
     return recognize_image(image)
 
 
-def recognize_image(pil_image: Image.Image) -> [int]:
+def recognize_image(pil_image):
     """
     :returns array of composer id's
     if there is no faces on image, returns [-1]
@@ -46,7 +46,7 @@ def recognize_image(pil_image: Image.Image) -> [int]:
     return result
 
 
-def recognize_url_image(url_image: str) -> [int]:
+def recognize_url_image(url_image):
     if not url_image.startswith(urldataprefix):
         print('Unsupported datatype exception')
         return
