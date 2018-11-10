@@ -52,7 +52,7 @@ def composer(request: HttpRequest, composer_id: int):
 
 
 def affiche(request: HttpRequest, composer_id):
-    concerts = Concert.objects.filter(id=composer_id)
+    concerts = Concert.objects.filter(composer=composer_id)
     return render(request, 'affiche.html', {'concerts': concerts})
 
 def composers(request):

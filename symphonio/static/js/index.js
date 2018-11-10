@@ -19,17 +19,16 @@ takeShot.click(function () {
 });
 
 const cam = $("#cameraThings");
-cam.hide();
+$("#cameraSelect").hide();
 
 takeShot.hide();
 
-$("#showCameraButton").click(function () {
-    if (cam.is(":hidden")) {
-        $("#showCameraButton").hide();
-        cam.slideDown();
-        $("#takeShot").slideDown();
-        getStream();
-    }
+$("#camera").click(function () {
+    $("#showCameraButton").hide();
+    $("#cameraSelect").show();
+    cam.slideDown();
+    $("#takeShot").slideDown();
+    getStream();
 });
 
 const video = document.querySelector("#camera");
