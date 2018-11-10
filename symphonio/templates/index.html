@@ -1,21 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row">
-    <div class="col-sm-12" id="info">
-        Распознаватель Композиторов 3000, просто попробуй!
-    </div>
-</div>
 <div class="row d-lg-none" id="cameraThings">
-    <div class="col-12 rounded">
-        {% load static %}
-        <video autoplay id="camera" poster="{% static 'images/logo.png' %}" class="col-12"></video>
-    </div>
-    <div class="col-12">
+    <div class="container">
         <div class="form-group row" align="center">
             <div class="col-3"></div>
             <select class="form-control col-6" id="cameraSelect"></select>
         </div>
+        {% load static %}
+        <video autoplay id="camera" poster="{% static 'images/take.png' %}" class="col-12" data-toggle="tooltip" title="press to take a shot"></video>
+    </div>
+    <div class="col-12">
+
     </div>
 </div>
 <div class="row" id="buttons">
@@ -23,17 +19,17 @@
         <form method="post" action="/recognize" id="form" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.data }}
-            <div class="row">
-                <div class="form-group col-lg-4 d-none d-lg-block"></div>
-                <div class="col-sm-12 col-md-6 d-lg-none">
-                    <button class="form-group btn btn-primary col-12" type="button" id="showCameraButton">Take a photo
-                    </button>
-                    <button class="form-group btn btn-danger col-12" type="button" id="takeShot">Take shot</button>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center d-lg-none">
+                            <button class="btn btn-danger btn-circle" type="button" id="takeShot" ><i class="fa fa-heart"></i> </button>
+                    </div>
                 </div>
+            </div>
                 <div class="col-sm-12 col-md-6 col-lg-4">
-                    <label class="btn btn-primary col-12" id="photoField">
+                    <label class="btn btn-link col-12" id="photoField">
                         {{ form.photo }}
-                        Загрузить фото
+                        Загрузить фото из файловой системы
                     </label>
                 </div>
             </div>
