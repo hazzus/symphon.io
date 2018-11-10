@@ -29,5 +29,5 @@ urlpatterns = [
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
-# import symphonio.background_jobs
+import symphonio.background_jobs
 
