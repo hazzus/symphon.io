@@ -1,10 +1,13 @@
+from datetime import datetime
+
+from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import render
-from django.http import HttpRequest, HttpResponse
 from .forms import PhotoForm
 
 from PIL import Image
 
-from .recognize import recognize_image
+from .recognize import recognize_image, recognize_url_image
+from .models import Concert, Composer, Composition
 
 
 def index(request):
@@ -17,23 +20,41 @@ def recognize(request: HttpRequest):
         pass  # TODO: error
         raise NotImplementedError("non-post")
     photo_form = PhotoForm(request.POST, request.FILES)
+    result_set = None
     if not photo_form.is_valid():
         pass  # TODO: error
         raise NotImplementedError("non-valid")
+    if 'photo' in request.FILES:
+        image_field = photo_form.cleaned_data['photo']
+        image: Image.Image = Image.open(image_field)
+        result_set = recognize_image(image)
+    elif 'data' in photo_form.cleaned_data:
+        result_set = recognize_url_image(photo_form.cleaned_data['data'])
 
-    image_field = photo_form.cleaned_data['photo']
-    image: Image.Image = Image.open(image_field)
-    result_set = recognize_image(image)
     if not result_set:
-        raise NotImplementedError("can't recognize anything")
+        return render(request, 'failure.html')
     elif len(result_set) > 1:
         raise NotImplementedError("recognized too much")
     else:
         assert len(result_set) == 1
         composer_id = result_set[0]
         # TODO: maybe check that composer_id exists in the database
-        return render(request, 'composers/%s' % composer_id)
+        return HttpResponseRedirect('composer/%s' % composer_id)
+
+def composer(request: HttpRequest, composer_id: int):
+    comp = Composer.objects.get(pk=composer_id)
+    compositions = Composition.objects.filter(author=comp)
+    return render(request, 'composer.html',
+                  {'name': comp.name,
+                   'biography': comp.bio,
+                   'photo': comp.photo,
+                   'compositions': compositions})
 
 
-def composers(request: HttpRequest, composer_id: int):
-    raise NotImplementedError("make a result page")
+def affiche(request: HttpRequest, composer_id):
+    concerts = Concert.objects.filter(id=composer_id)
+    return render(request, 'affiche.html', {'concerts': concerts})
+
+def composers(request):
+    comps = Composer.objects.all()
+    return render(request, 'list_composers.html', {'composers': comps})

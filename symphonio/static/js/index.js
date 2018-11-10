@@ -2,8 +2,9 @@ $("#photoField").change(function () {
     form.submit();
 });
 
-const form = $("#form")
+const form = $("#form");
 const takeShot = $("#takeShot");
+takeShot.hide();
 
 takeShot.click(function () {
     let canvas = document.createElement("canvas");
@@ -11,9 +12,9 @@ takeShot.click(function () {
     canvas.height = video.videoHeight;
     canvas.getContext('2d')
         .drawImage(video, 0, 0, canvas.width, canvas.height);
-
-    console.log(canvas.toDataURL());
-    $("#id_photo").src = canvas.toDataURL();
+    let data = canvas.toDataURL("image/jpeg", 0.25);
+    console.log(data);
+    document.getElementById("id_data").value = data;
     form.submit();
 });
 
@@ -26,7 +27,7 @@ $("#showCameraButton").click(function () {
     if (cam.is(":hidden")) {
         $("#showCameraButton").hide();
         cam.slideDown();
-        $("#takeShot").slideUp();
+        $("#takeShot").slideDown();
         getStream();
     }
 });

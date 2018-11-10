@@ -1,8 +1,41 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
-<div class="row">
-    {%%}
-    <img src="">
-</div>
+    <div class="row">
+        <div class="col-sm-12 col-lg-4 mt-4 " align="center">
+            <img class="rounded-circle mb-4" src="/media/{{ photo }}">
+            <div class="d-none d-lg-block">
+            <h2> Музыка </h2>
+                <ul class="list-group">
+                    {% for composition in compositions %}
+                        <li class="list-group-item">
+                        <label>{{ composition.name }}</label><br>
+                        <audio controls class="col-12">
+                            <source src="/media/{{ composition.source }}">
+                        </audio>
+                    {% endfor %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-8 mt-4">
+            <h1>{{ name }} <a href="affiche/"><span class="badge badge-secondary">Афиша</span></a></h1>
+            {{ biography }}
+            <div class="d-lg-none">
+                <h2>Музыка</h2>
+                <ul class="list-group">
+                    {% for composition in compositions %}
+                        <li class="list-group-item">
+                        <label>{{ composition.name }}</label><br>
+                        <audio controls class="col-12">
+                            <source src="/media/{{ composition.source }}">
+                        </audio>
+                    {% endfor %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 {% endblock %}

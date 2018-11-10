@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12" align="center">
+            <h1> Неудача! </h1>
+            <h2> Нам не удалось ничего распознать на вашем изображении! </h2>
+            {% load static %}
+            <img src="{% static 'images/beethoven.jpg' %}" width="90%">
+        </div>
+    </div>
+
+{% endblock %}
