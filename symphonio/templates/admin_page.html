@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if user.is_superuser %}
+        <form class="form-inline my-2 my-lg-0">
+            <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'update' %}">Обновить афишу</a>
+        </form>
+{% endif %}
+</body>
+</html>
+{% endblock %}
