@@ -6,26 +6,26 @@ from .recognize import recognize_image
 from django.core.files.images import ImageFile
 
 
-# class FirstRecognitionTestCase(TestCase):
-#
-#     def test_the_same_recognize(self):
-#         composer = Composer.objects.create(name="lol kekov", bio="norm",
-#                                            photo=ImageFile(open("compface/img/dicaprio.jpg", "rb")))
-#         # composer.save()
-#         image = Image.open(open("compface/img/dicaprio.jpg", "rb"))
-#         result = recognize_image(image)
-#         self.assertEqual(result, [composer.id])
-#
-#
-# class SecondRecognitionTestCase(TestCase):
-#     def test_not_recognized(self):
-#         composer = Composer.objects.create(name="lol kekov", bio="norm",
-#                                            photo=ImageFile(open("compface/img/dicaprio.jpg", "rb")))
-#         composer.save()
-#         image2 = Image.open(open("compface/img/tch.jpg", "rb"))
-#         result = recognize_image(image2)
-#         self.assertEqual(result, [])
-#         composer.delete()
+class FirstRecognitionTestCase(TestCase):
+
+    def test_the_same_recognize(self):
+        composer = Composer.objects.create(name="lol kekov", bio="norm",
+                                           photo=ImageFile(open("compface/img/dicaprio.jpg", "rb")))
+        # composer.save()
+        image = Image.open(open("compface/img/dicaprio.jpg", "rb"))
+        result = recognize_image(image)
+        self.assertEqual(result, [composer.id])
+
+
+class SecondRecognitionTestCase(TestCase):
+    def test_not_recognized(self):
+        composer = Composer.objects.create(name="lol kekov", bio="norm",
+                                           photo=ImageFile(open("compface/img/dicaprio.jpg", "rb")))
+        composer.save()
+        image2 = Image.open(open("compface/img/tch.jpg", "rb"))
+        result = recognize_image(image2)
+        self.assertEqual(result, [])
+        composer.delete()
 
 
 class ThirdRecognitionTestCase(TestCase):

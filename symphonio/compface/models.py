@@ -7,6 +7,7 @@ import face_recognition
 
 from PIL import Image
 
+
 class Composer(models.Model):
     name = models.CharField(max_length=255)
     bio = models.TextField(default="")
