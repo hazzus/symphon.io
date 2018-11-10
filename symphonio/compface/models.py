@@ -72,6 +72,7 @@ def get_photo_encoding(image):
 
 
 def add_composer_encoding(id, image):
+    image = image.convert('RGB')
     try:
         encoding = get_photo_encoding(image)
     except IndexError:
