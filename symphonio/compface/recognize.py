@@ -18,12 +18,15 @@ def recognize_from_bytes(bytearray: [bytes]):
 
 
 def recognize_image(pil_image: Image.Image) -> [int]:
+    pil_image = pil_image.convert('RGB')
     image_encoding = numpy.array(pil_image)
     face_encodings = face_recognition.face_encodings(image_encoding)
     result = []
     for encoding in face_encodings:
         recognized = face_recognition.compare_faces(known_faces, encoding)
+        print(recognized)
         for i in range(len(recognized)):
+            print(recognized[i])
             if recognized[i]:
                 result.append(ids[i])
                 print("Success!" + str(ids[i]))
