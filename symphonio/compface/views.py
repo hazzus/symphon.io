@@ -1,11 +1,13 @@
+from datetime import datetime
+
 from django.http import HttpRequest
 from django.shortcuts import render
 from .forms import PhotoForm
-from .models import Composer, Composition
 
 from PIL import Image
 
 from .recognize import recognize_image
+from .models import Concert, Composer, Composition
 
 
 def index(request):
@@ -47,3 +49,8 @@ def composer(request: HttpRequest, composer_id: int):
                    'biography': comp.bio,
                    'photo': comp.photo,
                    'compositions': compositions})
+
+
+def affiche(request: HttpRequest):
+    concerts = [Concert(start_time=datetime(2018, 11, 8, 12, 0), place='Зал №1', url='https://www.google.com', composer=Composer.objects.filter(name='И.С.Бах')[0], description='123'), Concert(start_time=datetime(2018, 11, 8, 12, 0), place='Зал №2', url='https://www.google.com', composer=Composer.objects.filter(name='И.С.Бах')[0], description='321')]
+    return render(request, 'affiche.html', {'concerts': concerts})
