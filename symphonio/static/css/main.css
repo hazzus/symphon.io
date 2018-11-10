@@ -1,8 +1,19 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    padding-bottom: 60px;
+}
+
 .bg {
     height: 100%;
     background: no-repeat;
-    background-size:  100% auto;
+    background-size: 100% auto;
 }
+
 .btn-circle {
     width: 70px;
     height: 70px;
@@ -14,4 +25,22 @@
 
 p {
     text-indent: 20px;
+}
+
+footer {
+    height: 60px;
+    width: 100%;
+    line-height: 60px;
+    position: absolute;
+    background-color: #2D2D2D;
+
+    bottom: 0;
+}
+
+.bottom-container {
+    width: auto;
+    max-width: 680px;
+    background-color: #2D2D2D;
+    text-align-all: ;
+    padding: 0 15px;
 }
