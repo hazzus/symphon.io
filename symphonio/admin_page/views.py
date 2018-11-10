@@ -27,6 +27,6 @@ def add_composer_photo(request):
         image: Image.Image = Image.open(image_field)
         result = add_composer_encoding(photo_form.cleaned_data.get('composer').pk, image)
         if result:
-            return render(request, 'admin_page.html', {'success': True})
+            return render(request, 'admin_page.html', {'success': True, 'form': AddPhotoToComposerForm()})
         else:
-            return render(request, 'admin_page.html', {'danger': True})
+            return render(request, 'admin_page.html', {'danger': True, 'form': AddPhotoToComposerForm()})
