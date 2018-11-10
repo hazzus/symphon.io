@@ -19,8 +19,6 @@ def recognize_from_bytes(bytearray: [bytes]):
 
 
 def recognize_image(pil_image: Image.Image) -> [int]:
-
-
     composers = ComposerRecognitionData.objects.all()
     for composer in composers:
         known_faces.append(pickle.loads(composer.data))
@@ -32,12 +30,9 @@ def recognize_image(pil_image: Image.Image) -> [int]:
     result = []
     for encoding in face_encodings:
         recognized = face_recognition.compare_faces(known_faces, encoding)
-        print(recognized)
         for i in range(len(recognized)):
-            print(recognized[i])
             if recognized[i]:
                 result.append(ids[i])
-                print("Success!" + str(ids[i]))
                 break
     return result
 
