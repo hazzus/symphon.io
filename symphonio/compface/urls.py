@@ -6,5 +6,5 @@ urlpatterns = [
     path('recognize', views.recognize),
     path('composer/<int:composer_id>/', views.composer, name='composer'),
     path('composers', views.composers, name='composers'),
-    path('composer/<int:composer_id>/affiche/', views.affiche)
+    path('composer/<int:composer_id>/affiche/', views.affiche),
 ]
