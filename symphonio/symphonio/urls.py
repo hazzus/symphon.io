@@ -44,5 +44,5 @@ def handler500(request, *args, **argv):
     return render(request, '500.html')
 
 
-# import symphonio.background_jobs
+import symphonio.background_jobs
 
