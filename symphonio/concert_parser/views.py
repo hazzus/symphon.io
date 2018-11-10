@@ -37,12 +37,16 @@ def parse(request):
             url = 'https://www.meloman.ru' + link
             concert_info = get_concert(link)
             concerts = BeautifulSoup(concert_info.text, features='html.parser').find_all('h5', {'class': 'caps'})
-            description = BeautifulSoup(concert_info.text, features='html.parser').title.string
+            description = BeautifulSoup(concert_info.text, features='html.parser').title.string.split(':')[0]
             for comp in concerts:
                 if comp.parent.find('h6', {'class': 'gray'}) is not None:
                     current_composer = comp.find('a')
                     if current_composer is not None:
                         composer_name = "".join(current_composer.text.strip().split())
+                        if composer_name == 'И.С.Бах':
+                            composer_name = 'Бах'
+                        if composer_name == 'П.И.Чайковский':
+                            composer_name = 'Чайковский'
                         result_set = Composer.objects.filter(
                             name=composer_name)
                         if len(result_set) != 1:

@@ -15,6 +15,10 @@ Including another URLconf
 """
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.core.exceptions import PermissionDenied
+from django.http import HttpResponse
+from django.shortcuts import render, render_to_response
+from django.template import RequestContext
 from django.urls import path, include
 from django.conf.urls import url
 
@@ -26,7 +30,18 @@ urlpatterns = [
     url('', include('compface.urls')),
     path('', include('concert_parser.urls')),
     path('auth/', include('authorization.urls')),
+    path('', include('admin_page.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+def handler404(request, *args, **argv):
+    return render(request, '404.html')
+
+
+
+def handler500(request, *args, **argv):
+    return render(request, '500.html')
 
 
 # import symphonio.background_jobs

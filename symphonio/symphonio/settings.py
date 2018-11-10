@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'authorization',
     'compface',
     'concert_parser',
+    'admin_page',
     'django_apscheduler',
 ]
 

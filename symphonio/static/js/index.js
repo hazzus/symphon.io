@@ -1,12 +1,11 @@
+
+const form = $("#form");
 $("#photoField").change(function () {
     form.submit();
 });
 
-const form = $("#form");
-const takeShot = $("#takeShot");
-takeShot.hide();
 
-takeShot.click(function () {
+$('#takeShot').click(function () {
     let canvas = document.createElement("canvas");
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
@@ -19,16 +18,20 @@ takeShot.click(function () {
 });
 
 const cam = $("#cameraThings");
-$("#cameraSelect").hide();
 
-takeShot.hide();
-
+is_clicked = 0;
 $("#camera").click(function () {
-    $("#showCameraButton").hide();
-    $("#cameraSelect").show();
-    cam.slideDown();
-    $("#takeShot").slideDown();
-    getStream();
+    if (is_clicked === 0) {
+        $("#cameraSelect").show();
+        $("#takeShot").show();
+        $('#cameraSelect').show();
+        cam.slideDown();
+        $("#takeShot").slideDown();
+        getStream();
+        is_clicked++;
+    } else {
+        $('#takeShot').click()
+    }
 });
 
 const video = document.querySelector("#camera");
@@ -78,3 +81,4 @@ function gotStream(stream) {
 function handleError(error) {
     console.error('Error: ', error);
 }
+
