@@ -4,17 +4,12 @@ import face_recognition
 from PIL import Image
 import io
 import numpy
-from .models import ComposerRecognitionData
 from binascii import a2b_base64
 
 urldataprefix = "data:image/jpg;base64,"
 
-composers = ComposerRecognitionData.objects.all()
 known_faces = []
 ids = []
-for composer in composers:
-    known_faces.append(pickle.loads(composer.data))
-    ids.append(composer.composer.id)
 
 
 def recognize_from_bytes(bytearray: [bytes]):
@@ -31,6 +26,7 @@ def recognize_image(pil_image: Image.Image) -> [int]:
         for i in range(len(recognized)):
             if recognized[i]:
                 result.append(ids[i])
+                print("Success!" + str(ids[i]))
                 break
     return result
 
