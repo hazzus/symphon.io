@@ -16,14 +16,15 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-12 col-lg-8 mt-4">
+        <div class="col-sm-12 col-lg-8 mt-4 mb-4">
             <h2 class="d-none d-lg-block">{{ name }}</h2>
-            <div id="bio">
-                <h4>Биография</h4>
+            <h4>Биография</h4>
+            <div id="bio" align="justify" style="padding-left: 10px;">
                 {{ biography }}
             </div>
-            <div id="compositions">
-                <h4>Композиции</h4>
+            <h4>Композиции</h4>
+            <div id="compositions" style="padding-left: 10px">
+                {% if compositions %}
                 <ul class="list-group">
                     {% for composition in compositions %}
                         <li class="list-group-item">
@@ -34,6 +35,12 @@
                     {% endfor %}
                     </li>
                 </ul>
+                {% else %}
+                    <h5>Копозиций не добавлено!</h5>
+                    {% if user.is_superuser %}
+                        Вы как администратор, <a href="/admin_page">можете их добавить</a>
+                    {% endif %}
+                {% endif %}
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from django.http import HttpRequest, HttpResponseRedirect
+from django.http import HttpRequest, HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
 from .forms import PhotoForm
 
@@ -32,9 +32,10 @@ def recognize(request: HttpRequest):
         result_set = recognize_url_image(photo_form.cleaned_data['data'])
 
     if not result_set:
-        return render(request, 'failure.html')
+        return render(request, 'failure.html', {'no': True})
     elif len(result_set) > 1:
-        raise NotImplementedError("recognized too much")
+        # TODO maybe choose one composer?
+        return render(request, 'failure.html')
     else:
         assert len(result_set) == 1
         composer_id = result_set[0]
@@ -42,7 +43,10 @@ def recognize(request: HttpRequest):
         return HttpResponseRedirect('composer/%s' % composer_id)
 
 def composer(request: HttpRequest, composer_id: int):
-    comp = Composer.objects.get(pk=composer_id)
+    try:
+        comp = Composer.objects.get(pk=composer_id)
+    except Composer.DoesNotExist:
+        return HttpResponseNotFound()
     compositions = Composition.objects.filter(author=comp)
     return render(request, 'composer.html',
                   {'name': comp.name,
