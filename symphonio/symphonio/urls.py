@@ -33,6 +33,7 @@ urlpatterns = [
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
+import symphonio.background_jobs
 
 def handler404(request, *args, **argv):
     return render(request, '404.html')
@@ -43,5 +44,5 @@ def handler500(request, *args, **argv):
     return render(request, '500.html')
 
 
-# import symphonio.background_jobs
+import symphonio.background_jobs
 

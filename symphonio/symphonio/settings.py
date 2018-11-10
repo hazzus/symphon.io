@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'authorization',
     'compface',
+    'psycopg2',
     'concert_parser',
     'admin_page',
     'django_apscheduler',
@@ -79,8 +80,12 @@ WSGI_APPLICATION = 'symphonio.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'symphonio_db',
+        'USER': 'dbadmin',
+        'PASSWORD': 'dbadmin',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
