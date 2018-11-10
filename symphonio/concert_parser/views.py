@@ -1,7 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 import datetime
-from ..compface.models import Concert, Composer
+from compface.models import Concert, Composer
+from django.http import HttpResponseRedirect
 
 
 def get_month_concerts():
@@ -19,7 +20,7 @@ months = {"Января": 1, "Февраля": 2, "Марта": 3, "Апреля
           "Сентября": 9, "Октября": 10, "Ноября": 11, "Декабря": 12}
 
 
-def parse():
+def parse(request):
     month = BeautifulSoup(
         get_month_concerts().text, features='html.parser').findAll(
         'div', {'class': 'calendar-day'})
@@ -35,8 +36,8 @@ def parse():
             link = c.attrs['data-link']
             url = 'https://www.meloman.ru' + link
             concert_info = get_concert(link)
-            concerts = BeautifulSoup(concert_info, features='html.parser').find_all('h5', {'class': 'caps'})
-            description = BeautifulSoup(concert_info, features='html.parser').title.string
+            concerts = BeautifulSoup(concert_info.text, features='html.parser').find_all('h5', {'class': 'caps'})
+            description = BeautifulSoup(concert_info.text, features='html.parser').title.string
             for comp in concerts:
                 if comp.parent.find('h6', {'class': 'gray'}) is not None:
                     current_composer = comp.find('a')
@@ -44,10 +45,10 @@ def parse():
                         composer_name = "".join(current_composer.text.strip().split())
                         result_set = Composer.objects.filter(
                             name=composer_name)
-                        if len(result_set != 1):
+                        if len(result_set) != 1:
                             continue
                         composer = result_set[0]
-                        start_time = datetime.datetime(2018, month, dayo, hour,
+                        start_time = datetime.datetime(2018, month, day, hour,
                                                        minute)
                         concert = Concert(
                             composer=composer,
@@ -56,3 +57,4 @@ def parse():
                             url=url,
                             description=description)
                         concert.save()
+    return HttpResponseRedirect('/')

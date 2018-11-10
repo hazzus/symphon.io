@@ -23,7 +23,8 @@ from . import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('parse_test', include('concert_parser.urls')),
-    url('', include('compface.urls'))
+    url('', include('compface.urls')),
+    path('', include('concert_parser.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
