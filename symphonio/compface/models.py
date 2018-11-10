@@ -15,6 +15,7 @@ class Concert(models.Model):
     creation_time = models.DateTimeField(default=timezone.now)
     start_time = models.DateTimeField('start of the concert')
     place = models.CharField(max_length=255)
+    url = models.URLField(max_length=255)
     description = models.TextField()
 
     def __str__(self):
