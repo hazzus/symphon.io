@@ -60,11 +60,11 @@ def add_composer_encoding(id, image):
     try:
         encoding = get_photo_encoding(image)
     except IndexError:
-        print("Could not find any face")
-        return
+        return False
     composer = Composer.objects.get(pk=id)
     composer_encoded = ComposerRecognitionData.objects.create(composer=composer, data=pickle.dumps(encoding))
     composer_encoded.save()
+    return True
 
 
 @receiver(models.signals.post_save, sender=Composer)
