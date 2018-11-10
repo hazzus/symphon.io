@@ -14,3 +14,7 @@ function frameLoad() {
         frame.height = frame.contentWindow.document.body.scrollHeight + "px";
     }
 }
+
+function loader() {
+    $("#loader").show();
+}

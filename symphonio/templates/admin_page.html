@@ -8,7 +8,9 @@
                 {% csrf_token %}
                 <div class="form-group">
                     <label>Обновить афишу:</label>
-                    <a class="btn btn-outline-success" href="{% url 'update' %}">Обновить афишу</a>
+                    <a class="btn btn-outline-success" href="{% url 'update' %}" onclick="loader()">Обновить афишу</a>
+                    {% load static %}
+                    <img id="loader" height="40px" src="{% static 'images/loader3.gif' %}" style="display: none;" >
                 </div>
                 <h5> Обучение распознавания: </h5>
                 <div class="form-group">

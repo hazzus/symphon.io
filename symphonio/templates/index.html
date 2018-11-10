@@ -30,21 +30,25 @@
                                     style="display: none"></button>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-4 mt-5 d-lg-none">
-                    <label class="btn btn-link col-12 b-lg-none" id="photoField">
-                        {{ form.photo }}
-                        Загрузить фото из файловой системы
-                    </label>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-4 mt-5 d-none d-lg-block">
-                    Для того, чтобы воспользоваться полным функционалом нашего портала, посетите его с мобильного
-                    устрофства. Тем не менее, вы можете попробовать
-                    <span class="btn btn-link" id="photoField">
-                        {{ form.photo }}
-                        Загрузить фото из файловой системы
-                    </span>, и оценить результат :)
-                    <img src="{% static 'images/lol.jpg' %}">
+                    <div class="col-sm-12 col-md-6 col-lg-4 mt-5 d-lg-none">
+                        <label class="btn btn-link col-12 b-lg-none" id="photoField">
+                            {{ form.photo }}
+                            Загрузить фото из файловой системы
+                        </label>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 d-none d-md-block"></div>
+                        <div class="col-sm-12 col-md-12 col-lg-6 mt-5 mb-4 d-none d-lg-block" align="justify">
+                            <label >Для того, чтобы воспользоваться полным функционалом нашего портала,
+                                посетите его с мобильного устрофства. Тем не менее, вы можете попробовать
+                            </label>
+                            <label class="btn btn-light col-12" id="photoField">
+                                {{ form.photo }}
+                                Загрузить фото из файловой системы
+                            </label>
+                        </div>
+                    </div>
+                    <img class="col-12" src="{% static 'images/many.jpg' %}">
                 </div>
             </form>
         </div>

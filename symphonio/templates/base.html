@@ -21,7 +21,9 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="opacity: 0.8;">
+{% if request.get_full_path != '/about/' %}
     <a class="navbar-brand" href="/"><img src="{% static 'images/logo.png' %}" height="60px"></a>
+{% endif %}
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -40,9 +42,9 @@
             </li>
         </ul>
         {% if user.is_superuser %}
-        <form class="form-inline my-2 my-lg-0">
-            <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'admin_page' %}">Администрирование</a>
-        </form>
+            <form class="form-inline my-2 my-lg-0">
+                <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'admin_page' %}">Администрирование</a>
+            </form>
         {% endif %}
     </div>
 </nav>
