@@ -5,7 +5,7 @@
     <div class="container">
         <div class="form-group row" align="center">
             <div class="col-3"></div>
-            <select class="form-control col-6" id="cameraSelect" hidden="true"></select>
+            <select class="form-control col-6" id="cameraSelect" style="display: none"></select>
         </div>
         {% load static %}
         <video autoplay id="camera" poster="{% static 'images/take.png' %}" class="col-12" data-toggle="tooltip" data-placement="bottom" title="press to take a shot"></video>
@@ -22,7 +22,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 text-center d-lg-block">
-                            <button class="btn btn-danger btn-circle" type="button" id="takeShot"  hidden="true"> </button>
+                            <button class="btn btn-danger btn-circle" type="button" id="takeShot" style="display: none"> </button>
                     </div>
                 </div>
             </div>
