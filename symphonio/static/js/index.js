@@ -5,7 +5,9 @@ $("#photoField").change(function () {
 });
 
 
-$('#takeShot').click(function () {
+
+cameraButton = $('#takeShot');
+cameraButton.click(function () {
     let canvas = document.createElement("canvas");
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
@@ -17,20 +19,25 @@ $('#takeShot').click(function () {
     form.submit();
 });
 
-const cam = $("#cameraThings");
-
+const cameraStuff = $('#cameraThings');
+const cameraHolder = $('#cameraHolder');
+const camera = $('#camera');
+const cameraSelect = $('#cameraSelect');
 is_clicked = 0;
-$("#camera").click(function () {
+$("#camera_holder").click(function () {
     if (is_clicked === 0) {
-        $("#cameraSelect").show();
-        $("#takeShot").show();
-        $('#cameraSelect').show();
-        cam.slideDown();
-        $("#takeShot").slideDown();
+        cameraHolder.fadeOut();
+        cameraSelect.show();
+        takeShot.show();
+        cameraSelect.show();
+        $('#info').slideUp();
+        cameraStuff.fadeIn();
+        camera.slideDown(duration = 900);
+        cameraButton.show();
         getStream();
         is_clicked++;
     } else {
-        $('#takeShot').click()
+        cameraButton.click()
     }
 });
 

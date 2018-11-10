@@ -3,7 +3,7 @@
 {% block content %}
     <div class="row d-lg-none" id="cameraThings">
         <div class="container">
-            <div class="col-12 text-center mt-2 d-lg-none" id="info">Включите камеру, наведите устройство на панно с интересующим
+            <div class="col-12 text-center mt-2 d-lg-none" id="info">Нажмите на пиктограмму, выберите камеру, наведите устройство на панно с интересующим
                 композитором и сфотографируйте его ;)
             </div>
             <div class="form-group row" align="center">
@@ -11,8 +11,8 @@
                 <select class="form-control col-6 mt-2" id="cameraSelect" style="display: none; "></select>
             </div>
             {% load static %}
-            <video autoplay id="camera" poster="{% static 'images/take.png' %}" class="col-12" data-toggle="tooltip"
-                   data-placement="bottom" title="Нажмите, чтобы открыть камеру"></video>
+            <img id="cameraHolder" src="{% static 'images/take.png'%}">
+            <video autoplay id="camera" class="col-12" style="display: none"></video>
         </div>
         <div class="col-12">
 
