@@ -33,7 +33,7 @@ footer {
     width: 100%;
     line-height: 60px;
     position: absolute;
-    background-color: #2D2D2D;
+    background-color: #F9F7F3;
 
     bottom: 0;
 }
@@ -41,7 +41,7 @@ footer {
 .bottom-container {
     width: auto;
     max-width: 680px;
-    background-color: #2D2D2D;
+    background-color: #F9F7F3;
     padding: 0 15px;
 }
 
