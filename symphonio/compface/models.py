@@ -1,5 +1,16 @@
 from django.db import models
 from django.utils import timezone
+import pickle
+import numpy
+import face_recognition
+from PIL import Image
+from django.dispatch import receiver
+
+
+def get_photo_encoding(image):
+    image = numpy.array(image)
+    return pickle.dumps(face_recognition.face_encodings(image)[0])
+
 
 
 class Composer(models.Model):
@@ -8,8 +19,10 @@ class Composer(models.Model):
     photo = models.ImageField()
     creation_time = models.DateTimeField(default=timezone.now)
 
+
     def __str__(self):
         return 'Composer: %s' % self.name
+
 
 class Composition(models.Model):
     author = models.ForeignKey(Composer, on_delete=models.CASCADE)
@@ -35,3 +48,11 @@ class Concert(models.Model):
 class ComposerRecognitionData(models.Model):
     composer = models.ForeignKey(Composer, on_delete=models.CASCADE)
     data = models.BinaryField()
+
+
+@receiver(models.signals.post_save, sender=Composer)
+def establish_encoding_after_save(sender, instance, **kwargs):
+    image = Image.open(instance.photo.open("rb"))
+    recognition_data = ComposerRecognitionData.objects.create(composer=instance,
+                                                              data=get_photo_encoding(image))
+    recognition_data.save()
