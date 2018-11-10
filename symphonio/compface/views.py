@@ -15,7 +15,7 @@ def index(request):
     return render(request, 'index.html', {'form': photo_form})
 
 
-def recognize(request: HttpRequest):
+def recognize(request):
     if request.method != "POST":
         pass  # TODO: error
         raise NotImplementedError("non-post")
@@ -26,25 +26,25 @@ def recognize(request: HttpRequest):
         raise NotImplementedError("non-valid")
     if 'photo' in request.FILES:
         image_field = photo_form.cleaned_data['photo']
-        image: Image.Image = Image.open(image_field)
+        image = Image.open(image_field)
         result_set = recognize_image(image)
     elif 'data' in photo_form.cleaned_data:
         result_set = recognize_url_image(photo_form.cleaned_data['data'])
 
     if not result_set:
-        return render(request, 'failure.html', {'reason': 'no faces'})
+        return render(request, 'failure.html', {'reason': ' Мы не нашли лиц на вашем изображении.'})
     elif len(result_set) > 1:
         # TODO maybe choose one composer?
         return render(request, 'failure.html')
     else:
         if result_set == [-1]:
-            return render(request, 'failure.html', {'reason': 'no targets'})
+            return render(request, 'failure.html', {'reason': 'На этом изображении нет известных композиторов.'})
         composer_id = result_set[0]
         # TODO: maybe check that composer_id exists in the database
         return HttpResponseRedirect('composer/%s' % composer_id)
 
 
-def composer(request: HttpRequest, composer_id: int):
+def composer(request, composer_id):
     try:
         comp = Composer.objects.get(pk=composer_id)
     except Composer.DoesNotExist:
@@ -57,7 +57,7 @@ def composer(request: HttpRequest, composer_id: int):
                    'compositions': compositions})
 
 
-def affiche(request: HttpRequest, composer_id):
+def affiche(request, composer_id):
     concerts = Concert.objects.filter(composer=composer_id)
     return render(request, 'affiche.html', {'concerts': concerts})
 

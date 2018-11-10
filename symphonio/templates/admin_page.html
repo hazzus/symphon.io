@@ -1,16 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2> Настройки администратора </h2>
     <div class="row mt-4">
+        <div class="col-md-3 d-none d-md-block"></div>
         <div class="col-12 col-md-6">
+            <h2 > Настройки администратора </h2>
             <form enctype="multipart/form-data" action="/add_photo" method="post" id="form">
                 {% csrf_token %}
+                <div class="form-group">
+                    <label>Добавление композиторов и композиций, ручное
+                        обновление афиши</label>
+                    <a class="btn btn-outline-success" href="/admin">Перейти</a>
+                </div>
                 <div class="form-group">
                     <label>Обновить афишу:</label>
                     <a class="btn btn-outline-success" href="{% url 'update' %}" onclick="loader()">Обновить афишу</a>
                     {% load static %}
-                    <img id="loader" height="40px" src="{% static 'images/loader3.gif' %}" style="display: none;" >
+                    <img id="loader" height="40px" src="{% static 'images/loader3.gif' %}" style="display: none;">
                 </div>
                 <h5> Обучение распознавания: </h5>
                 <div class="form-group">
@@ -35,10 +41,6 @@
                 {% endif %}
             </form>
         </div>
-    </div>
-    <div class="row mt-4">
-            <iframe id="adminFrame" src="/admin" width="100%" onload="frameLoad()" scrolling="no">
-            </iframe>
     </div>
     {% load static %}
     <script src="{% static 'js/admin_page.js' %}"></script>

@@ -26,7 +26,14 @@ class Composer(models.Model):
         super(Composer, self).save(*args, **kwargs)
         image = Image.open(self.photo)
         (width, height) = image.size
-        image = image.resize((300, height * 300 // width))
+        if width < height:
+            image = image.resize((300, height * 300 // width))
+        else:
+            image = image.resize((width * 300 // height, 300))
+        if width == 300:
+            image = image.crop((0, 0, 300, 300))
+        else:
+            image = image.crop((0, 0, 300, 300))
         image.save(self.photo.path)
 
 

@@ -3,7 +3,7 @@
 {% block content %}
     <div class="row d-lg-none" id="cameraThings">
         <div class="container">
-            <div class="col-12 text-center mt-2 d-lg-none">Включите камеру, наведите устройство на панно с интересующим
+            <div class="col-12 text-center mt-2 d-lg-none" id="info">Нажмите на пиктограмму, выберите камеру, наведите устройство на панно с интересующим
                 композитором и сфотографируйте его ;)
             </div>
             <div class="form-group row" align="center">
@@ -11,8 +11,8 @@
                 <select class="form-control col-6 mt-2" id="cameraSelect" style="display: none; "></select>
             </div>
             {% load static %}
-            <video autoplay id="camera" poster="{% static 'images/take.png' %}" class="col-12" data-toggle="tooltip"
-                   data-placement="bottom" title="Нажмите, чтобы открыть камеру"></video>
+            <img id="cameraHolder" class="col-12" src="{% static 'images/take.png'%}">
+            <video autoplay id="camera" class="col-12" style="display: none"></video>
         </div>
         <div class="col-12">
 
@@ -40,7 +40,7 @@
                         <div class="col-lg-3 d-none d-md-block"></div>
                         <div class="col-sm-12 col-md-12 col-lg-6 mt-5 mb-4 d-none d-lg-block" align="justify">
                             <label >Для того, чтобы воспользоваться полным функционалом нашего портала,
-                                посетите его с мобильного устрофства. Тем не менее, вы можете попробовать
+                                посетите его с мобильного устройства. Тем не менее, вы можете попробовать
                             </label>
                             <label class="btn btn-light col-12" id="photoField">
                                 {{ form.photo }}
@@ -48,7 +48,7 @@
                             </label>
                         </div>
                     </div>
-                    <img class="col-12" src="{% static 'images/many.jpg' %}">
+                    <img class="col-12 d-none d-lg-block" src="{% static 'images/many.jpg' %}">
                 </div>
             </form>
         </div>
