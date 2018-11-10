@@ -8,7 +8,8 @@
 </div>
 <div class="row d-lg-none" id="cameraThings">
     <div class="col-12 rounded">
-        <video autoplay id="camera" class="col-12"></video>
+        {% load static %}
+        <video autoplay id="camera" poster="{% static 'images/logo.png' %}" class="col-12"></video>
     </div>
     <div class="col-12">
         <div class="form-group row" align="center">
@@ -30,7 +31,7 @@
                     <button class="form-group btn btn-danger col-12" type="button" id="takeShot">Take shot</button>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-4">
-                    <label class="btn btn-warning col-12" id="photoField">
+                    <label class="btn btn-primary col-12" id="photoField">
                         {{ form.photo }}
                         Загрузить фото
                     </label>
