@@ -21,9 +21,9 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="opacity: 0.8;">
-{% if request.get_full_path != '/about/' %}
-    <a class="navbar-brand" href="/"><img src="{% static 'images/logo.png' %}" height="60px"></a>
-{% endif %}
+    {% if request.get_full_path != '/about/' %}
+        <a class="navbar-brand" href="/"><img src="{% static 'images/logo.png' %}" height="60px"></a>
+    {% endif %}
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -41,11 +41,15 @@
                 <a class="nav-link" href="/about">О нас</a>
             </li>
         </ul>
-        {% if user.is_superuser %}
-            <form class="form-inline my-2 my-lg-0">
+        <form class="form-inline my-2 my-lg-0">
+            {% if not user.is_authenticated %}
+                <img src="{% static 'images/vk_logo.png' %}" height="50px">
+                <a class="btn btn-outline-primary my-2 my-sm-0" href="{% url 'request_token' %}">Войти</a>
+            {% endif %}
+            {% if user.is_superuser %}
                 <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'admin_page' %}">Администрирование</a>
-            </form>
-        {% endif %}
+            {% endif %}
+        </form>
     </div>
 </nav>
 <main role="main" class="container-fluid">
@@ -55,7 +59,7 @@
 
 <footer class="text-center">
     <div class="container-fluid bottom-container text-bold text-muted">
-    Senior HTML Developers (c) 2018
+        Senior HTML Developers (c) 2018
 
     </div>
 </footer>
