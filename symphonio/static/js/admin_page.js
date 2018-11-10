@@ -5,9 +5,12 @@ $("#photoField").change(function () {
 const form = $("#form");
 
 function frameLoad() {
-    const iFrameID = document.getElementById('adminFrame');
-    if (iFrameID) {
-        iFrameID.height = "";
-        iFrameID.height = iFrameID.contentWindow.document.body.scrollHeight + "px";
+    const frame = document.getElementById('adminFrame');
+    if (frame.contentWindow.location.href.split('/')[3] !== "admin") {
+        frame.contentWindow.location.replace(frame.src);
+    }
+    if (frame) {
+        frame.height = "";
+        frame.height = frame.contentWindow.document.body.scrollHeight + "px";
     }
 }
