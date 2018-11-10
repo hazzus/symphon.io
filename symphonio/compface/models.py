@@ -12,7 +12,7 @@ from PIL import Image
 class Composer(models.Model):
     name = models.CharField(max_length=255)
     bio = models.TextField(default="")
-    photo = models.ImageField(default='anton.png')
+    photo = models.ImageField()
     creation_time = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
@@ -53,7 +53,7 @@ class ComposerRecognitionData(models.Model):
 
 
 def get_photo_encoding(image):
-    return face_recognition.face_encodings(numpy.array(image))
+    return face_recognition.face_encodings(numpy.array(image))[0]
 
 
 composers = ComposerRecognitionData.objects.all()
@@ -71,7 +71,7 @@ def add_composer_encoding(id, image):
     composer = Composer.objects.get(pk=id)
     composer_encoded = ComposerRecognitionData.objects.create(composer=composer, data=pickle.dumps(encoding))
     composer_encoded.save()
-    known_faces.append(face_recognition.face_encodings(numpy.array(image))[0])
+    known_faces.append(encoding)
     ids.append(id)
 
 

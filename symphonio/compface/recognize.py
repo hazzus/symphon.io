@@ -18,8 +18,8 @@ def recognize_from_bytes(bytearray: [bytes]):
 
 
 def recognize_image(pil_image: Image.Image) -> [int]:
+    pil_image = pil_image.convert('RGB')
     image_encoding = numpy.array(pil_image)
-
     face_encodings = face_recognition.face_encodings(image_encoding)
     result = []
     for encoding in face_encodings:
