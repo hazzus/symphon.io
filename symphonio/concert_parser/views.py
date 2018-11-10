@@ -39,8 +39,9 @@ def parse():
             description = BeautifulSoup(concert_info, features='html.parser').title.string
             for comp in concerts:
                 if comp.parent.find('h6', {'class': 'gray'}) is not None:
-                    if comp.find('a') is not None:
-                        composer_name = "".join(composer.text.strip().split())
+                    current_composer = comp.find('a')
+                    if current_composer is not None:
+                        composer_name = "".join(current_composer.text.strip().split())
                         result_set = Composer.objects.filter(
                             name=composer_name)
                         if len(result_set != 1):
