@@ -1,34 +1,32 @@
 from django.shortcuts import render
-from compface.forms import PhotoForm
+
+from .forms import AddPhotoToComposerForm
+
 from PIL import Image
 from compface.models import add_composer_encoding
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 
 
 def admin_page(request):
-    return render(request, 'admin_page.html')
+    if not request.user.is_superuser:
+        return HttpResponseForbidden()
+    form = AddPhotoToComposerForm()
+    return render(request, 'admin_page.html', {'form': form})
 
 
 def add_composer_photo(request):
     if request.method != "POST":
         pass  # TODO: error
         raise NotImplementedError("non-post")
-    photo_form = PhotoForm(request.POST, request.FILES)
-    result_set = None
+    photo_form = AddPhotoToComposerForm(request.POST, request.FILES)
     if not photo_form.is_valid():
         pass  # TODO: error
         raise NotImplementedError("non-valid")
     if 'photo' in request.FILES:
         image_field = photo_form.cleaned_data['photo']
         image: Image.Image = Image.open(image_field)
-        result_set = add_composer_encoding(request.POST.get("id", ""), image)
-
-    if not result_set:
-        return render(request, 'failure.html')
-    elif len(result_set) > 1:
-        raise NotImplementedError("recognized too much")
-    else:
-        assert len(result_set) == 1
-        composer_id = result_set[0]
-        # TODO: maybe check that composer_id exists in the database
-        return HttpResponseRedirect('composer/%s' % composer_id)
+        result = add_composer_encoding(photo_form.cleaned_data.get('composer').pk, image)
+        if result:
+            return render(request, 'admin_page.html', {'success': True})
+        else:
+            return render(request, 'admin_page.html', {'danger': True})

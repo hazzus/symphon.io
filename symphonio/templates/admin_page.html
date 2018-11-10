@@ -1,20 +1,40 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% if user.is_superuser %}
-        {% csrf_token %}
-        <form class="form-inline my-2 my-lg-0">
-            <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'update' %}">Обновить афишу</a>
-        </form>
-        {{ form.data }}
-        <div>
-            <label for="kek">Композитор</label><input type="text" name="composer_id" id="kek">
-            <label class="btn btn-outline-success my-2 my-sm-0" id="photoField">
-                {{ form.photo }}
-                Добавить образец фотографии композитора
-            </label>
+    <h2> Настройки администратора </h2>
+    <div class="row mt-4">
+        <div class="col-12 col-md-6">
+            <form enctype="multipart/form-data" action="/add_photo" method="post" id="form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label><h5>Обновить афишу:</h5></label>
+                    <a class="btn btn-outline-success" href="{% url 'update' %}">Обновить афишу</a>
+                </div>
+                <h5> Обучение распознавания: </h5>
+                <div class="form-group">
+                    <label>Выберите композитора</label>
+                    {{ form.composer }}
+                </div>
+                <div class="form-group ">
+                    <label class="btn btn-outline-success my-2 my-sm-0" id="photoField">
+                        {{ form.photo }}
+                        Добавить образец фотографии композитора
+                    </label>
+                </div>
+                {% if success %}
+                    <div class="alert alert-success">
+                        <h2> Успешно обучено </h2>
+                    </div>
+                {% endif %}
+                {% if danger %}
+                    <div class="alert alert-danger">
+                        <h2> Ваша фотография не подходит </h2>
+                    </div>
+                {% endif %}
+            </form>
+
         </div>
-    {% endif %}
+    </div>
     {% load static %}
     <script src="{% static 'js/admin_page.js' %}"></script>
 {% endblock %}
