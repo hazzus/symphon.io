@@ -1,8 +1,6 @@
 from django.db import models
 from django.dispatch import receiver
 from django.utils import timezone
-from PIL import Image
-from .recognize import known_faces, ids
 import numpy
 import pickle
 import face_recognition
@@ -18,12 +16,13 @@ class Composer(models.Model):
     def __str__(self):
         return 'Composer: %s' % self.name
 
-
     def save(self, *args, **kwargs):
         super(Composer, self).save(*args, **kwargs)
         image = Image.open(self.photo)
-        image = image.resize((300, 300))
+        (width, height) = image.size
+        image = image.resize((300, height * 300 // width))
         image.save(self.photo.path)
+
 
 class Composition(models.Model):
     author = models.ForeignKey(Composer, on_delete=models.CASCADE)
@@ -56,12 +55,6 @@ def get_photo_encoding(image):
     return face_recognition.face_encodings(numpy.array(image))[0]
 
 
-composers = ComposerRecognitionData.objects.all()
-for composer in composers:
-    known_faces.append(pickle.loads(composer.data))
-    ids.append(composer.composer.id)
-
-
 def add_composer_encoding(id, image):
     try:
         encoding = get_photo_encoding(image)
@@ -71,8 +64,6 @@ def add_composer_encoding(id, image):
     composer = Composer.objects.get(pk=id)
     composer_encoded = ComposerRecognitionData.objects.create(composer=composer, data=pickle.dumps(encoding))
     composer_encoded.save()
-    known_faces.append(encoding)
-    ids.append(id)
 
 
 @receiver(models.signals.post_save, sender=Composer)
