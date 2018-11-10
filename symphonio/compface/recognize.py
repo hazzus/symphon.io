@@ -5,6 +5,7 @@ from PIL import Image
 import io
 import numpy
 from binascii import a2b_base64
+from .models import ComposerRecognitionData
 
 urldataprefix = "data:image/jpeg;base64,"
 
@@ -18,6 +19,13 @@ def recognize_from_bytes(bytearray: [bytes]):
 
 
 def recognize_image(pil_image: Image.Image) -> [int]:
+
+
+    composers = ComposerRecognitionData.objects.all()
+    for composer in composers:
+        known_faces.append(pickle.loads(composer.data))
+        ids.append(composer.composer.id)
+
     pil_image = pil_image.convert('RGB')
     image_encoding = numpy.array(pil_image)
     face_encodings = face_recognition.face_encodings(image_encoding)
