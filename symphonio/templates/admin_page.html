@@ -1,18 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% if user.is_superuser %}
+    {% if user.is_superuser %}
+        {% csrf_token %}
         <form class="form-inline my-2 my-lg-0">
             <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'update' %}">Обновить афишу</a>
         </form>
-{% endif %}
-</body>
-</html>
+        {{ form.data }}
+        <div>
+            <label for="kek">Композитор</label><input type="text" name="composer_id" id="kek">
+            <label class="btn btn-outline-success my-2 my-sm-0" id="photoField">
+                {{ form.photo }}
+                Добавить образец фотографии композитора
+            </label>
+        </div>
+    {% endif %}
+    {% load static %}
+    <script src="{% static 'js/admin_page.js' %}"></script>
 {% endblock %}
