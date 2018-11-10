@@ -1,16 +1,11 @@
 from django.db import models
-from django.utils import timezone
-import pickle
-import numpy
-import face_recognition
-from PIL import Image
 from django.dispatch import receiver
-
-
-def get_photo_encoding(image):
-    image = numpy.array(image)
-    return pickle.dumps(face_recognition.face_encodings(image)[0])
-
+from django.utils import timezone
+from PIL import Image
+from .recognize import known_faces, ids
+import numpy
+import pickle
+import face_recognition
 
 from PIL import Image
 
@@ -56,9 +51,30 @@ class ComposerRecognitionData(models.Model):
     data = models.BinaryField()
 
 
+def get_photo_encoding(image):
+    return face_recognition.face_encodings(numpy.array(image))
+
+
+composers = ComposerRecognitionData.objects.all()
+for composer in composers:
+    known_faces.append(pickle.loads(composer.data))
+    ids.append(composer.composer.id)
+
+
+def add_composer_encoding(id, image):
+    try:
+        encoding = get_photo_encoding(image)
+    except IndexError:
+        print("Could not find any face")
+        return
+    composer = Composer.objects.get(pk=id)
+    composer_encoded = ComposerRecognitionData.objects.create(composer=composer, data=pickle.dumps(encoding))
+    composer_encoded.save()
+    known_faces.append(face_recognition.face_encodings(numpy.array(image))[0])
+    ids.append(id)
+
+
 @receiver(models.signals.post_save, sender=Composer)
 def establish_encoding_after_save(sender, instance, **kwargs):
     image = Image.open(instance.photo.open("rb"))
-    recognition_data = ComposerRecognitionData.objects.create(composer=instance,
-                                                              data=get_photo_encoding(image))
-    recognition_data.save()
+    add_composer_encoding(instance.id, image)
