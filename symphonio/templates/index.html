@@ -8,7 +8,7 @@
             <select class="form-control col-6 mt-2" id="cameraSelect" style="display: none; "></select>
         </div>
         {% load static %}
-        <video autoplay id="camera" poster="{% static 'images/take.png' %}" class="col-12" data-toggle="tooltip" data-placement="bottom" title="press to take a shot"></video>
+        <video autoplay id="camera" poster="{% static 'images/take.png' %}" class="col-12" data-toggle="tooltip" data-placement="bottom" title="Нажмите, чтобы открыть камеру"></video>
     </div>
     <div class="col-12">
 
@@ -21,12 +21,12 @@
             {{ form.data }}
             <div class="container">
                 <div class="row">
-                    <div class="col-12 text-center d-lg-block">
+                    <div class="col-12 text-center d-lg-none mt-2">
                             <button class="btn btn-danger btn-circle" type="button" id="takeShot" style="display: none"> </button>
                     </div>
                 </div>
             </div>
-                <div class="col-sm-12 col-md-6 col-lg-4" style="margin-top: 100px">
+                <div class="col-sm-12 col-md-6 col-lg-4 mt-5">
                     <label class="btn btn-link col-12" id="photoField">
                         {{ form.photo }}
                         Загрузить фото из файловой системы
