@@ -20,12 +20,8 @@ $('#takeShot').click(function () {
 const cam = $("#cameraThings");
 
 is_clicked = 0;
-if (cam.is(':visible')) {
-    $('#camera').tooltip('show');
-}
 $("#camera").click(function () {
     if (is_clicked === 0) {
-        $('#camera').tooltip('hide');
         $("#cameraSelect").show();
         $("#takeShot").show();
         $('#cameraSelect').show();
