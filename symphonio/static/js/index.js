@@ -24,11 +24,11 @@ const cameraHolder = $('#cameraHolder');
 const camera = $('#camera');
 const cameraSelect = $('#cameraSelect');
 is_clicked = 0;
-$("#camera_holder").click(function () {
+cameraHolder.click(function () {
     if (is_clicked === 0) {
         cameraHolder.fadeOut();
         cameraSelect.show();
-        takeShot.show();
+        cameraButton.show();
         cameraSelect.show();
         $('#info').slideUp();
         cameraStuff.fadeIn();
