@@ -52,7 +52,7 @@ def composer(request: HttpRequest, composer_id: int):
 
 
 def affiche(request: HttpRequest, composer_id):
-    concerts = [Concert(start_time=datetime(2018, 11, 8, 12, 0), place='Зал №1', url='https://www.google.com', composer=Composer.objects.filter(name='И.С.Бах')[0], description='123'), Concert(start_time=datetime(2018, 11, 8, 12, 0), place='Зал №2', url='https://www.google.com', composer=Composer.objects.filter(name='И.С.Бах')[0], description='321')]
+    concerts = Concert.objects.filter(id=composer_id)
     return render(request, 'affiche.html', {'concerts': concerts})
 
 def composers(request):
