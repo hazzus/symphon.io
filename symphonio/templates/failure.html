@@ -4,15 +4,13 @@
     <div class="row">
         <div class="col-sm-12" align="center">
             <h1> Неудача! </h1>
-            {% if no %}
-                <h2> Нам не удалось ничего распознать на вашем изображении! </h2>
-                {% load static %}
-                <img src="{% static 'images/beethoven.jpg' %}" width="90%">
-            {% else %}
-                <h2> К сожалению, на вашем изображении слишком много композиторов</h2>
-                {% load static %}
-                <img src="{% static 'images/many.jpg' %}" width="90%">
-            {% endif %}
+            <h2> {% if reason == 'no faces' %}
+                Мы не нашли лиц на вашем изображении.
+            {% elif reason == 'no targets' %}
+                На этом изображении нет известных композиторов.
+            {% endif %}</h2>
+            {% load static %}
+            <img src="{% static 'images/beethoven.jpg' %}" width="90%">
         </div>
     </div>
 

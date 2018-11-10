@@ -18,13 +18,13 @@ class FirstRecognitionTestCase(TestCase):
 
 
 class SecondRecognitionTestCase(TestCase):
-    def test_not_recognized(self):
+    def test_no_match(self):
         composer = Composer.objects.create(name="lol kekov", bio="norm",
                                            photo=ImageFile(open("compface/img/dicaprio.jpg", "rb")))
         composer.save()
         image2 = Image.open(open("compface/img/tch.jpg", "rb"))
         result = recognize_image(image2)
-        self.assertEqual(result, [])
+        self.assertEqual(result, [-1])
         composer.delete()
 
 
@@ -36,4 +36,15 @@ class ThirdRecognitionTestCase(TestCase):
         image2 = Image.open(open("compface/img/tchaik.png", "rb"))
         result = recognize_image(image2)
         self.assertEqual(result, [composer.id])
+        composer.delete()
+
+
+class FourthRecognitionTestCase(TestCase):
+    def test_nobody(self):
+        composer = Composer.objects.create(name="lol kekov", bio="norm",
+                                           photo=ImageFile(open("compface/img/dicaprio.jpg", "rb")))
+        composer.save()
+        image = Image.open(open("compface/img/forest.jpg", "rb"))
+        result = recognize_image(image)
+        self.assertEqual(result, [])
         composer.delete()
