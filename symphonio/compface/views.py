@@ -32,9 +32,9 @@ def recognize(request: HttpRequest):
         result_set = recognize_url_image(photo_form.cleaned_data['data'])
 
     if not result_set:
-        return render(request, 'failure.html')
+        return render(request, 'failure.html', {'no': True})
     elif len(result_set) > 1:
-        raise NotImplementedError("recognized too much")
+        return render(request, 'failure.html')
     else:
         assert len(result_set) == 1
         composer_id = result_set[0]
