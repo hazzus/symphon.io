@@ -11,7 +11,7 @@ from .vk_api import get_authorization_url, get_auth_info, get_bdate_and_sex
 
 
 def request_token(request: HttpRequest):
-    user: User = request.user
+    user = request.user
     if user.is_authenticated:
         return render(request, 'index.html')  # TODO: already exists
     url = get_authorization_url()
