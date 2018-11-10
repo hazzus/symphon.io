@@ -24,7 +24,7 @@ def add_composer_photo(request):
         raise NotImplementedError("non-valid")
     if 'photo' in request.FILES:
         image_field = photo_form.cleaned_data['photo']
-        image: Image.Image = Image.open(image_field)
+        image = Image.open(image_field)
         result = add_composer_encoding(photo_form.cleaned_data.get('composer').pk, image)
         if result:
             return render(request, 'admin_page.html', {'success': True, 'form': AddPhotoToComposerForm()})
