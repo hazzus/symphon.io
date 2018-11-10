@@ -19,21 +19,27 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="opacity: 0.8;">
-  <a class="navbar-brand" href="/"><img src="{% static 'images/logo.png' %}" height="60px"></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <a class="navbar-brand" href="/"><img src="{% static 'images/logo.png' %}" height="60px"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="/">Главная</a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" href="{% url 'composers' %}">Композиторы</a>
-      </li>
-    </ul>
-  </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Главная</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'composers' %}">Композиторы</a>
+            </li>
+        </ul>
+        {% if user.is_superuser %}
+        <form class="form-inline my-2 my-lg-0">
+            <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'update' %}">Обновить афишу</a>
+        </form>
+        {% endif %}
+    </div>
 </nav>
 <div class="container-fluid">
     {% block content %}
