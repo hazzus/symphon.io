@@ -5,7 +5,7 @@ $("#photoField").change(function () {
 });
 
 
-takeShot.click(function () {
+$('#takeShot').click(function () {
     let canvas = document.createElement("canvas");
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
@@ -20,10 +20,8 @@ takeShot.click(function () {
 const cam = $("#cameraThings");
 
 is_clicked = 0;
-$('#camera').tooltip('show');
 $("#camera").click(function () {
     if (is_clicked === 0) {
-        $('#camera').tooltip('hide');
         $("#cameraSelect").show();
         $("#takeShot").show();
         $('#cameraSelect').show();
@@ -32,7 +30,7 @@ $("#camera").click(function () {
         getStream();
         is_clicked++;
     } else {
-        location.reload();
+        $('#takeShot').click()
     }
 });
 
@@ -83,3 +81,4 @@ function gotStream(stream) {
 function handleError(error) {
     console.error('Error: ', error);
 }
+

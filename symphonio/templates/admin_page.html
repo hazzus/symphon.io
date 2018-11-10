@@ -7,7 +7,7 @@
             <form enctype="multipart/form-data" action="/add_photo" method="post" id="form">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label><h5>Обновить афишу:</h5></label>
+                    <label>Обновить афишу:</label>
                     <a class="btn btn-outline-success" href="{% url 'update' %}">Обновить афишу</a>
                 </div>
                 <h5> Обучение распознавания: </h5>
@@ -32,8 +32,11 @@
                     </div>
                 {% endif %}
             </form>
-
         </div>
+    </div>
+    <div class="row mt-4">
+            <iframe id="adminFrame" src="/admin" width="100%" onload="frameLoad()" scrolling="no">
+            </iframe>
     </div>
     {% load static %}
     <script src="{% static 'js/admin_page.js' %}"></script>

@@ -1,16 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="list-group">
-    {% for concert in concerts %}
-  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">{{ concert.place }}</h5>
-      <small>{{ concert.start_time }}</small>
+    <div class="list-group mt-2">
+        {% for concert in concerts %}
+            <a class="list-group-item list-group-item-action" href="{{ concert.url }}" style="background-color: #717171">
+
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ concert.place }}</h5>
+                    <small>{{ concert.start_time }}</small>
+                </div>
+                <p class="mb-1">{{ concert.description }}</p>
+            <small><u>Подробнее</u></small>
+
+            </a>
+        {% endfor %}
     </div>
-    <p class="mb-1">{{  concert.description  }}</p>
-    <small><a href="{{ concert.url }}">Подробнее...</a></small>
-  </a>
-    {% endfor %}
-</div>
 {% endblock %}

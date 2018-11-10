@@ -1,41 +1,49 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="row d-lg-none" id="cameraThings">
-        <div class="container">
-            <div class="form-group row" align="center">
-                <div class="col-3"></div>
-                <select class="form-control col-6" id="cameraSelect" style="display: none"></select>
-            </div>
-            {% load static %}
-            <video autoplay id="camera" poster="{% static 'images/take.png' %}" class="col-12" data-toggle="tooltip"
-                   data-placement="bottom" title="press to take a shot"></video>
+<div class="row d-lg-none" id="cameraThings">
+    <div class="container">
+        <div class="col-12 text-center mt-2 d-lg-none">Включите камеру, наведите устройство на панно с интересующим композитором и сфотографируйте его ;)</div>
+        <div class="form-group row" align="center">
+            <div class="col-3"></div>
+            <select class="form-control col-6 mt-2" id="cameraSelect" style="display: none; "></select>
         </div>
-        <div class="col-12">
+        {% load static %}
+        <video autoplay id="camera" poster="{% static 'images/take.png' %}" class="col-12" data-toggle="tooltip" data-placement="bottom" title="Нажмите, чтобы открыть камеру"></video>
+    </div>
+    <div class="col-12">
 
         </div>
     </div>
-    <div class="row" id="buttons">
-        <div class="col-sm-12">
-            <form method="post" action="/recognize" id="form" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.data }}
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 text-center d-lg-block">
-                            <button class="btn btn-danger btn-circle" type="button" id="takeShot"
-                                    style="display: none"></button>
-                        </div>
+</div>
+<div class="row" id="buttons">
+    <div class="col-sm-12">
+        <form method="post" action="/recognize" id="form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.data }}
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center d-lg-none mt-2">
+                            <button class="btn btn-danger btn-circle" type="button" id="takeShot" style="display: none"> </button>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-6 col-lg-4" style="margin-top: 100px">
-                    <label class="btn btn-link col-12" id="photoField">
+            </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 mt-5 d-lg-none">
+                    <label class="btn btn-link col-12 b-lg-none" id="photoField">
                         {{ form.photo }}
                         Загрузить фото из файловой системы
                     </label>
                 </div>
-            </form>
-        </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 mt-5 d-none d-lg-block">
+                    Для того, чтобы воспользоваться полным функционалом нашего портала, посетите его с мобильного устрофства. Тем не менее, вы можете попробовать
+                    <span class="btn btn-link" id="photoField">
+                        {{ form.photo }}
+                        Загрузить фото из файловой системы
+                    </span>, и оценить результат :)
+                    <img src="{% static 'images/lol.jpg' %}">
+                </div>
+            </div>
+        </form>
     </div>
     {% load static %}
     <script src="{% static 'js/index.js' %}"></script>

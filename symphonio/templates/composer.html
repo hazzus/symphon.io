@@ -5,22 +5,26 @@
 {% block content %}
     <div class="row">
         <div class="col-sm-12 col-lg-4 mt-4 " align="center">
-            <img class="rounded-circle mb-4" src="/media/{{ photo }}">
+            <img class="rounded-circle mb-4 img-thumbnail" src="/media/{{ photo }}">
             <div class="d-block">
                 <!-- Оглавление -->
             <h2 class="d-lg-none">{{ name }}</h2>
                 <div class="list-group">
-                    <a href="#bio" class="list-group-item list-group-item-action">Биография</a>
+                    <a href="#bio" class="list-group-item list-group-item-action active">Биография</a>
                     <a href="#compositions" class="list-group-item list-group-item-action">Композиции</a>
                     <a href="affiche/" class="list-group-item list-group-item-action">Афиша</a>
                 </div>
             </div>
         </div>
-        <div class="col-sm-12 col-lg-8 mt-4" style="word-wrap: break-word;">
+        <div class="col-sm-12 col-lg-8 mt-4 mb-4">
             <h2 class="d-none d-lg-block">{{ name }}</h2>
-            <div id="bio">{{ biography }}</div>
-            <div id="compositions">
-                <h3>Композиции</h3>
+            <h4>Биография</h4>
+            <div id="bio" align="justify" style="padding-left: 10px;">
+                {{ biography }}
+            </div>
+            <h4>Композиции</h4>
+            <div id="compositions" style="padding-left: 10px">
+                {% if compositions %}
                 <ul class="list-group">
                     {% for composition in compositions %}
                         <li class="list-group-item">
@@ -31,6 +35,12 @@
                     {% endfor %}
                     </li>
                 </ul>
+                {% else %}
+                    <h5>Копозиций не добавлено!</h5>
+                    {% if user.is_superuser %}
+                        Вы как администратор, <a href="/admin_page">можете их добавить</a>
+                    {% endif %}
+                {% endif %}
             </div>
         </div>
     </div>
