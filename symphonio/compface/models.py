@@ -26,7 +26,14 @@ class Composer(models.Model):
         super(Composer, self).save(*args, **kwargs)
         image = Image.open(self.photo)
         (width, height) = image.size
-        image = image.resize((300, height * 300 // width))
+        if width < height:
+            image = image.resize((300, height * 300 // width))
+        else:
+            image = image.resize((width * 300 // height, 300))
+        if width == 300:
+            image = image.crop((0, 0, 300, 300))
+        else:
+            image = image.crop((0, 0, 300, 300))
         image.save(self.photo.path)
 
 
@@ -67,6 +74,17 @@ class ComposerRecognitionData(models.Model):
     data = models.BinaryField()
 
 
+class User(models.Model):
+    MALE = 'M'
+    FEMALE = 'F'
+    GENDER_CHOICES = ((MALE, 'Male'), (FEMALE, 'Female'))
+    creation_time = models.DateTimeField(default=timezone.now)
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    age = models.IntegerField()
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+
+
 def get_photo_encoding(image):
     return face_recognition.face_encodings(numpy.array(image))[0]
 
@@ -78,7 +96,8 @@ def add_composer_encoding(id, image):
     except IndexError:
         return False
     composer = Composer.objects.get(pk=id)
-    composer_encoded = ComposerRecognitionData.objects.create(composer=composer, data=pickle.dumps(encoding))
+    composer_encoded = ComposerRecognitionData.objects.create(
+        composer=composer, data=pickle.dumps(encoding))
     composer_encoded.save()
     return True
 

@@ -4,11 +4,11 @@
     <div class="row mt-2">
     {% for comp in composers %}
         <div class="col-6 col-sm-4 col-md-3">
-            <div class="card mb-4 shadow-sm">
+            <div class="card mb-4 shadow-sm fg-color">
                 <img class="card-img-top" src="/media/{{ comp.photo }}" alt="{{ comp.name }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ comp.name }}</h5>
-                    <a href="{% url 'composer' comp.pk %}" class="btn btn-primary">Посмотреть</a>
+                    <a href="{% url 'composer' comp.pk %}" class="btn btn-secondary">Посмотреть</a>
                 </div>
             </div>
         </div>
