@@ -21,7 +21,8 @@ class Composer(models.Model):
     def save(self, *args, **kwargs):
         super(Composer, self).save(*args, **kwargs)
         image = Image.open(self.photo)
-        image = image.resize((300, 300))
+        (width, height) = image.size
+        image = image.resize((300, height * 300 // width))
         image.save(self.photo.path)
 
 class Composition(models.Model):

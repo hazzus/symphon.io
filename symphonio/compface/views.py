@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import render
 from .forms import PhotoForm
 
@@ -39,7 +39,7 @@ def recognize(request: HttpRequest):
         assert len(result_set) == 1
         composer_id = result_set[0]
         # TODO: maybe check that composer_id exists in the database
-        return render(request, 'composer/%s' % composer_id)
+        return HttpResponseRedirect('composer/%s' % composer_id)
 
 def composer(request: HttpRequest, composer_id: int):
     comp = Composer.objects.get(pk=composer_id)

@@ -7,7 +7,6 @@ import numpy
 from binascii import a2b_base64
 
 urldataprefix = "data:image/jpeg;base64,"
-urldataprefix = "data:image/jpg;base64,"
 
 known_faces = []
 ids = []
