@@ -1,10 +1,9 @@
+
+const form = $("#form");
 $("#photoField").change(function () {
     form.submit();
 });
 
-const form = $("#form");
-const takeShot = $("#takeShot");
-takeShot.hide();
 
 takeShot.click(function () {
     let canvas = document.createElement("canvas");
@@ -19,11 +18,11 @@ takeShot.click(function () {
 });
 
 const cam = $("#cameraThings");
-$("#cameraSelect").hide();
 
-takeShot.hide();
 
+$('#camera').tooltip('show');
 $("#camera").click(function () {
+    $('#camera').tooltip('hide');
     $("#showCameraButton").hide();
     $("#cameraSelect").show();
     cam.slideDown();

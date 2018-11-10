@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'compface',
     'concert_parser',
+    'admin_page',
     'django_apscheduler',
 ]
 
