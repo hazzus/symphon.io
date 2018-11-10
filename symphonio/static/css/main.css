@@ -41,6 +41,12 @@ footer {
     width: auto;
     max-width: 680px;
     background-color: #2D2D2D;
-    text-align-all: ;
     padding: 0 15px;
+}
+
+
+.fg-color {
+    /*!*#cae1cd *!*/
+    /*background-color: #cae1cd !important;*/
+    /*!*color: #000000 !important;*!*/
 }

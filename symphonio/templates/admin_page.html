@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2> Настройки администратора </h2>
     <div class="row mt-4">
+        <div class="col-md-3 d-none d-md-block"></div>
         <div class="col-12 col-md-6">
+            <h2 > Настройки администратора </h2>
             <form enctype="multipart/form-data" action="/add_photo" method="post" id="form">
                 {% csrf_token %}
                 <div class="form-group">
                     <label>Добавление композиторов и композиций, ручное
                         обновление афиши</label>
-                    <a class="btn btn-outline-success" href="/admin">GO</a>
+                    <a class="btn btn-outline-success" href="/admin">Перейти</a>
                 </div>
                 <div class="form-group">
                     <label>Обновить афишу:</label>
