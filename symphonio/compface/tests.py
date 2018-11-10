@@ -4,7 +4,6 @@ from .models import Composer
 from .trainer import add_composer_encoding
 from .recognize import recognize_image
 
-
 class RecognitionTestCase(TestCase):
 
     def test_the_same_recognize(self):
