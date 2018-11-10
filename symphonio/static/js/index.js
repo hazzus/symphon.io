@@ -5,7 +5,7 @@ $("#photoField").change(function () {
 });
 
 
-takeShot.click(function () {
+$('#takeShot').click(function () {
     let canvas = document.createElement("canvas");
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
@@ -20,7 +20,9 @@ takeShot.click(function () {
 const cam = $("#cameraThings");
 
 is_clicked = 0;
-$('#camera').tooltip('show');
+if (cam.is(':visible')) {
+    $('#camera').tooltip('show');
+}
 $("#camera").click(function () {
     if (is_clicked === 0) {
         $('#camera').tooltip('hide');
@@ -32,7 +34,7 @@ $("#camera").click(function () {
         getStream();
         is_clicked++;
     } else {
-        location.reload();
+        $('#takeShot').click()
     }
 });
 
