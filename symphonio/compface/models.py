@@ -9,6 +9,11 @@ from PIL import Image
 
 
 class Composer(models.Model):
+
+    class Meta:
+        verbose_name = 'Композитор'
+        verbose_name_plural = 'Композиторы'
+
     name = models.CharField(max_length=255)
     bio = models.TextField(default="")
     photo = models.ImageField()
@@ -26,6 +31,11 @@ class Composer(models.Model):
 
 
 class Composition(models.Model):
+
+    class Meta:
+        verbose_name = 'Композиция'
+        verbose_name_plural = 'Композиции'
+
     author = models.ForeignKey(Composer, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     source = models.FileField()
@@ -35,6 +45,11 @@ class Composition(models.Model):
 
 
 class Concert(models.Model):
+
+    class Meta:
+        verbose_name = 'Концерт'
+        verbose_name_plural = 'Концерты'
+
     composer = models.ForeignKey(Composer, on_delete=models.CASCADE)
     creation_time = models.DateTimeField(default=timezone.now)
     start_time = models.DateTimeField('start of the concert')
