@@ -25,7 +25,7 @@ SECRET_KEY = 't14bovn()#4rjjt1ctp3(#un1@*c8_b3yko3dnzfqzi0pj3$2r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['symphonio.tk']
 
 # Application definition
 
