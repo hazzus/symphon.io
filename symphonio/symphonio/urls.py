@@ -25,7 +25,8 @@ urlpatterns = [
     path('parse_test', include('concert_parser.urls')),
     url('', include('compface.urls')),
     path('', include('admin_page.urls')),
-    path('', include('concert_parser.urls'))
+    path('', include('concert_parser.urls')),
+    path('auth/', include('authorization.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
