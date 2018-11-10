@@ -32,14 +32,16 @@ def recognize(request: HttpRequest):
         result_set = recognize_url_image(photo_form.cleaned_data['data'])
 
     if not result_set:
-        return render(request, 'failure.html')
+        return render(request, 'failure.html', {'reason': 'no faces'})
     elif len(result_set) > 1:
         raise NotImplementedError("recognized too much")
     else:
-        assert len(result_set) == 1
+        if result_set == [-1]:
+            return render(request, 'failure.html', {'reason': 'no targets'})
         composer_id = result_set[0]
         # TODO: maybe check that composer_id exists in the database
         return HttpResponseRedirect('composer/%s' % composer_id)
+
 
 def composer(request: HttpRequest, composer_id: int):
     comp = Composer.objects.get(pk=composer_id)
@@ -54,6 +56,7 @@ def composer(request: HttpRequest, composer_id: int):
 def affiche(request: HttpRequest, composer_id):
     concerts = Concert.objects.filter(composer=composer_id)
     return render(request, 'affiche.html', {'concerts': concerts})
+
 
 def composers(request):
     comps = Composer.objects.all()
