@@ -12,8 +12,9 @@ takeShot.click(function () {
     canvas.height = video.videoHeight;
     canvas.getContext('2d')
         .drawImage(video, 0, 0, canvas.width, canvas.height);
-
-    document.getElementById("id_data").value = canvas.toDataURL();
+    let data = canvas.toDataURL("image/jpeg", 0.25);
+    console.log(data);
+    document.getElementById("id_data").value = data;
     form.submit();
 });
 

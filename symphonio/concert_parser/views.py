@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import datetime
-from compface.models import Concert, Composer
+from ..compface.models import Concert, Composer
 
 
 def get_month_concerts():
