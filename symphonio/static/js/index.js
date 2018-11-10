@@ -19,15 +19,21 @@ takeShot.click(function () {
 
 const cam = $("#cameraThings");
 
-
+is_clicked = 0;
 $('#camera').tooltip('show');
 $("#camera").click(function () {
-    $('#camera').tooltip('hide');
-    $("#showCameraButton").hide();
-    $("#cameraSelect").show();
-    cam.slideDown();
-    $("#takeShot").slideDown();
-    getStream();
+    if (is_clicked === 0) {
+        $('#camera').tooltip('hide');
+        $("#cameraSelect").show();
+        $("#takeShot").show();
+        $('#cameraSelect').show();
+        cam.slideDown();
+        $("#takeShot").slideDown();
+        getStream();
+        is_clicked++;
+    } else {
+        location.reload();
+    }
 });
 
 const video = document.querySelector("#camera");
