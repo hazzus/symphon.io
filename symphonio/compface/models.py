@@ -7,16 +7,23 @@ import numpy
 import pickle
 import face_recognition
 
+from PIL import Image
 
 class Composer(models.Model):
     name = models.CharField(max_length=255)
-    bio = models.TextField()
-    photo = models.ImageField()
+    bio = models.TextField(default="")
+    photo = models.ImageField(default='anton.png')
     creation_time = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return 'Composer: %s' % self.name
 
+
+    def save(self, *args, **kwargs):
+        super(Composer, self).save(*args, **kwargs)
+        image = Image.open(self.photo)
+        image = image.resize((300, 300))
+        image.save(self.photo.path)
 
 class Composition(models.Model):
     author = models.ForeignKey(Composer, on_delete=models.CASCADE)
@@ -32,6 +39,7 @@ class Concert(models.Model):
     creation_time = models.DateTimeField(default=timezone.now)
     start_time = models.DateTimeField('start of the concert')
     place = models.CharField(max_length=255)
+    url = models.URLField(max_length=255, default='')
     description = models.TextField()
 
     def __str__(self):

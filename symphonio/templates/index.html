@@ -7,8 +7,8 @@
     </div>
 </div>
 <div class="row d-lg-none" id="cameraThings">
-    <div class="col-12">
-        <video autoplay id="camera" class="rounded col-12"></video>
+    <div class="col-12 rounded">
+        <video autoplay id="camera" class="col-12"></video>
     </div>
     <div class="col-12">
         <div class="form-group row" align="center">
@@ -21,6 +21,7 @@
     <div class="col-sm-12">
         <form method="post" action="/recognize" id="form" enctype="multipart/form-data">
             {% csrf_token %}
+            {{ form.data }}
             <div class="row">
                 <div class="form-group col-lg-4 d-none d-lg-block"></div>
                 <div class="col-sm-12 col-md-6 d-lg-none">
