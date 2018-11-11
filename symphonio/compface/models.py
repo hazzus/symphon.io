@@ -92,6 +92,20 @@ class Compilation(models.Model):
         ], verbose_name='Средний возраст слушателя'
     )
 
+    def save(self, *args, **kwargs):
+        super(Compilation, self).save(*args, **kwargs)
+        image = Image.open(self.photo)
+        (width, height) = image.size
+        if width < height:
+            image = image.resize((300, height * 300 // width))
+        else:
+            image = image.resize((width * 300 // height, 300))
+        if width == 300:
+            image = image.crop((0, 0, 300, 300))
+        else:
+            image = image.crop((0, 0, 300, 300))
+        image.save(self.photo.path)
+
     def __str__(self):
         return 'Подборка {}'.format(self.name)
 
