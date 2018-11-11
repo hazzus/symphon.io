@@ -34,13 +34,16 @@ def recognize(request):
         result_set = recognize_url_image(photo_form.cleaned_data['data'])
 
     if not result_set:
-        return render(request, 'failure.html', {'reason': ' Мы не нашли лиц на вашем изображении.'})
+        return render(request, 'failure.html',
+                      {'reason': ' Мы не нашли лиц на вашем изображении.'})
     elif len(result_set) > 1:
         # TODO maybe choose one composer?
         return render(request, 'failure.html')
     else:
         if result_set == [-1]:
-            return render(request, 'failure.html', {'reason': 'На этом изображении нет известных композиторов.'})
+            return render(
+                request, 'failure.html',
+                {'reason': 'На этом изображении нет известных композиторов.'})
         composer_id = result_set[0]
         # TODO: maybe check that composer_id exists in the database
         return HttpResponseRedirect('composer/%s' % composer_id)
@@ -52,13 +55,15 @@ def composer(request, composer_id):
     except Composer.DoesNotExist:
         return HttpResponseNotFound()
     compositions = Composition.objects.filter(author=comp)
-    return render(request, 'composer.html',
-                  {'name': comp.name,
-                   'first_name': comp.first_name,
-                   'patronymic': comp.patronymic,
-                   'biography': comp.bio,
-                   'photo': comp.photo,
-                   'compositions': compositions})
+    return render(
+        request, 'composer.html', {
+            'name': comp.name,
+            'first_name': comp.first_name,
+            'patronymic': comp.patronymic,
+            'biography': comp.bio,
+            'photo': comp.photo,
+            'compositions': compositions
+        })
 
 
 def affiche(request, composer_id):
@@ -75,15 +80,22 @@ def compilations(request):
     comps = Compilation.objects.all()
     return render(request, 'list_compilations.html', {'compilations': comps})
 
+
 def compilation(request, compilation_id):
     try:
         comp = Compilation.objects.get(pk=compilation_id)
     except Composer.DoesNotExist:
         return HttpResponseNotFound()
     compositions = comp.compositions.all()
-    compositions = sorted(compositions, key=lambda x : -math.fabs(request.user.profile.age - x.medium_age))
-    return render(request, 'compilation.html',
-                  {'name': comp.name,
-                   'photo': comp.photo,
-                   'description': comp.description,
-                   'compositions': compositions})
+    if request.user.is_authenticated:
+        compositions = sorted(
+            compositions,
+            key=lambda x: -math.fabs(request.user.profile.age - comp.medium_age)
+        )
+    return render(
+        request, 'compilation.html', {
+            'name': comp.name,
+            'photo': comp.photo,
+            'description': comp.description,
+            'compositions': compositions
+        })
