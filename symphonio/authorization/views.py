@@ -40,10 +40,12 @@ def receive_token(request):
         return render(request, 'failure.html', {'reason': 'Извините, не удалось войти'})
     if sex is None:
         sex = 0
-    result_set = User.objects.get(profile__vk_id=vk_id)
-    if result_set:
-        login(request, result_set)
+    try:
+        result_set = User.objects.get(profile__vk_id=vk_id)
+        login(request, result_set[0])
         return HttpResponseRedirect('/')
+    except User.DoesNotExist:
+        pass
     age = make_age(bdate)
     gender = make_gender(sex)
     user = User()
