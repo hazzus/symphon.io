@@ -2,10 +2,9 @@
 
 {% block content %}
     {% if concerts %}
-    <div class="list-group mt-2">
+    <div class="list-group mt-2 container affiche-list">
         {% for concert in concerts %}
             <div class="list-group-item list-group-item-action fg-color">
-
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">{{ concert.place }}</h5>
                     <small>{{ concert.start_time }}</small>
