@@ -20,7 +20,7 @@ def request_token(request):
 
 
 def receive_token(request):
-    if request.user.is_authenticated or request.method == 'GET':
+    if request.user.is_authenticated or request.method != 'GET':
         return HttpResponseNotFound()
     code = request.GET.get('code')
     if code is None:
