@@ -30,3 +30,4 @@ def add_composer_photo(request):
             return render(request, 'admin_page.html', {'success': True, 'form': AddPhotoToComposerForm()})
         else:
             return render(request, 'admin_page.html', {'danger': True, 'form': AddPhotoToComposerForm()})
+
