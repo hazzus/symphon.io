@@ -25,7 +25,8 @@
     {% if request.get_full_path != '/about/' %}
         <a class="navbar-brand" href="/">
             <img src="{% static 'images/logo.png' %}" height="50px">
-
+        </a>
+        <a class="navbar-brand" href="http://www.meloman.ru/">
             <img src="{% static 'images/mf_logo.png' %}" height="50px">
         </a>
     {% endif %}
@@ -41,6 +42,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'composers' %}">Композиторы</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'compilations' %}">Подборки</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/about">О нас</a>
