@@ -52,6 +52,8 @@ def composer(request, composer_id):
     compositions = Composition.objects.filter(author=comp)
     return render(request, 'composer.html',
                   {'name': comp.name,
+                   'first_name': comp.first_name,
+                   'patronymic': comp.patronymic,
                    'biography': comp.bio,
                    'photo': comp.photo,
                    'compositions': compositions})

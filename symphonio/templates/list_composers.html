@@ -7,7 +7,10 @@
             <div class="card mb-4 shadow-sm fg-color">
                 <img class="card-img-top" src="/media/{{ comp.photo }}" alt="{{ comp.name }}">
                 <div class="card-body">
-                    <h5 class="card-title">{{ comp.name }}</h5>
+                    <h5 class="card-title">
+                        <div class="text-nowrap">{{ comp.first_name}} </div>
+                        <div class="text-nowrap">{{comp.patronymic}} </div>
+                        <div class="text-nowrap">{{ comp.name }}</div></h5>
                     <a href="{% url 'composer' comp.pk %}" class="btn btn-secondary">Посмотреть</a>
                 </div>
             </div>

@@ -9,12 +9,13 @@ from PIL import Image
 
 
 class Composer(models.Model):
-
     class Meta:
         verbose_name = 'Композитор'
         verbose_name_plural = 'Композиторы'
 
     name = models.CharField(max_length=255)
+    first_name = models.CharField(max_length=255, default='')
+    patronymic = models.CharField(max_length=255, default='', blank=True)
     bio = models.TextField(default="")
     photo = models.ImageField()
     creation_time = models.DateTimeField(default=timezone.now)
@@ -38,7 +39,6 @@ class Composer(models.Model):
 
 
 class Composition(models.Model):
-
     class Meta:
         verbose_name = 'Композиция'
         verbose_name_plural = 'Композиции'
@@ -52,7 +52,6 @@ class Composition(models.Model):
 
 
 class Concert(models.Model):
-
     class Meta:
         verbose_name = 'Концерт'
         verbose_name_plural = 'Концерты'
