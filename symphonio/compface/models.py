@@ -51,6 +51,19 @@ class Composition(models.Model):
     def __str__(self):
         return self.author.name + ' - ' + self.name
 
+    def save(self, *args, **kwargs):
+        super(Composition, self).save(*args, **kwargs)
+        image = Image.open(self.photo)
+        (width, height) = image.size
+        if width < height:
+            image = image.resize((300, height * 300 // width))
+        else:
+            image = image.resize((width * 300 // height, 300))
+        if width == 300:
+            image = image.crop((0, 0, 300, 300))
+        else:
+            image = image.crop((0, 0, 300, 300))
+        image.save(self.photo.path)
 
 class Concert(models.Model):
     class Meta:
