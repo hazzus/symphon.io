@@ -34,10 +34,12 @@ def receive_token(request):
     assert expires_in is not None
     assert vk_id is not None
     if email is None:
-        return render(request, 'failure.html', {'reason': 'Извините, не удалось войти'})
+        return render(request, 'failure.html', {'reason': 'Пожалуйста, укажите e-mail в настройках Вашей страницы '
+                                                          'ВКонтакте'})
     bdate, sex, fn, ln = get_bdate_and_sex(token, vk_id)
     if bdate is None:
-        return render(request, 'failure.html', {'reason': 'Извините, не удалось войти'})
+        return render(request, 'failure.html', {'reason': 'Пожалуйста, укажите возраст в настройках Вашей страницы '
+                                                          'ВКонтакте'})
     if sex is None:
         sex = 0
     try:

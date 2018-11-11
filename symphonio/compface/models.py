@@ -84,6 +84,7 @@ class Compilation(models.Model):
     description = models.TextField(default="авторская подборка", verbose_name='Описание подборки')
     compositions = models.ManyToManyField(Composition, verbose_name='Композиции')
     medium_age = models.IntegerField(
+        default=35,
         validators= [
             MaxValueValidator(100),
             MinValueValidator(1)
