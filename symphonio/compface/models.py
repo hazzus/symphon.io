@@ -1,6 +1,7 @@
 from django.db import models
 from django.dispatch import receiver
 from django.utils import timezone
+from django.core.validators import MaxValueValidator, MinValueValidator
 import numpy
 import pickle
 import face_recognition
@@ -21,7 +22,7 @@ class Composer(models.Model):
     creation_time = models.DateTimeField(default=timezone.now, verbose_name='Время создания')
 
     def __str__(self):
-        return 'Composer: %s' % self.name
+        return 'Композитор: %s' % self.name
 
     def save(self, *args, **kwargs):
         super(Composer, self).save(*args, **kwargs)
@@ -79,10 +80,18 @@ class Compilation(models.Model):
         verbose_name_plural = 'Подборки'
 
     name = models.CharField(max_length=255, verbose_name='Название')
-    photo = models.ImageField(default='rakh.png', verbose_name='Изображение для подборки')
+    photo = models.ImageField( verbose_name='Изображение для подборки')
     description = models.TextField(default="авторская подборка", verbose_name='Описание подборки')
     compositions = models.ManyToManyField(Composition, verbose_name='Композиции')
+    medium_age = models.IntegerField(
+        validators= [
+            MaxValueValidator(100),
+            MinValueValidator(1)
+        ], verbose_name='Средний возраст слушателя'
+    )
 
+    def __str__(self):
+        return 'Подборка {}'.format(self.name)
 
 
 class User(models.Model):
