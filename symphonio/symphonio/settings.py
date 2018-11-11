@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': 'symphonio_db',
         'USER': 'dbadmin',
         'PASSWORD': 'dbadmin',
-        'HOST': '127.0.0.1',
+        'HOST': '104.248.142.173',
         'PORT': '5432',
     }
 }
