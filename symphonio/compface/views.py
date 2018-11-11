@@ -78,7 +78,7 @@ def compilation(request, compilation_id):
         comp = Compilation.objects.get(pk=compilation_id)
     except Composer.DoesNotExist:
         return HttpResponseNotFound()
-    compositions = Compilation.compositions.all()
+    compositions = comp.compositions.all()
     return render(request, 'compilation.html',
                   {'name': comp.name,
                    'photo': comp.photo,
