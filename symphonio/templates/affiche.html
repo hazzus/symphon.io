@@ -10,8 +10,8 @@
                     <small>{{ concert.start_time }}</small>
                 </div>
                 <p class="mb-1">{{ concert.description }}</p>
-                <small><a href="{{ concert.url }}"><u>Подробнеe</u></a></small>
-                <small><a href="{{ concert.buy_tickets_url }}"><u>Купить билеты</u></a></small>
+                <small class="float-left"><a href="{{ concert.url }}"><u>Подробнеe</u></a></small>
+                <small class="float-right"><a href="{{ concert.buy_tickets_url }}"><u>Купить билеты</u></a></small>
             </div>
         {% endfor %}
     </div>
