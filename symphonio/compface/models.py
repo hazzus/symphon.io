@@ -73,6 +73,16 @@ class ComposerRecognitionData(models.Model):
     data = models.BinaryField()
 
 
+class Compilation(models.Model):
+    class Meta:
+        verbose_name = 'Подборка'
+        verbose_name_plural = 'Подборки'
+
+    name = models.CharField(max_length=255)
+    description = models.TextField(default="авторская подборка")
+    compositions = models.ManyToManyField(Composition)
+
+
 class User(models.Model):
     MALE = 'M'
     FEMALE = 'F'

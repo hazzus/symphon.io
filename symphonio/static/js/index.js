@@ -23,25 +23,21 @@ const cameraStuff = $('#cameraThings');
 const cameraHolder = $('#cameraHolder');
 const camera = $('#camera');
 const cameraSelect = $('#cameraSelect');
-is_clicked = 0;
 cameraHolder.click(function () {
-    if (is_clicked === 0) {
-        cameraHolder.fadeOut();
-        cameraSelect.show();
-        cameraButton.show();
-        cameraSelect.show();
-        $('#info').slideUp();
-        cameraStuff.fadeIn();
-        camera.slideDown(duration = 900);
-        cameraButton.show();
-        videoSelect.value = videoSelect.options[videoSelect.options.length - 1];
-        getStream();
-        is_clicked++;
-    } else {
-        cameraButton.click()
-    }
+    cameraHolder.fadeOut();
+    cameraSelect.show();
+    cameraButton.show();
+    cameraSelect.show();
+    $('#info').slideUp();
+    cameraStuff.fadeIn();
+    camera.slideDown(duration = 900);
+    cameraButton.show();
+    getStream();
 });
 
+camera.click(function () {
+    cameraButton.click();
+});
 const video = document.querySelector("#camera");
 const videoSelect = document.querySelector('select#cameraSelect');
 
