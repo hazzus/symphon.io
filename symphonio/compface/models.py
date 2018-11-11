@@ -73,7 +73,7 @@ class ComposerRecognitionData(models.Model):
     data = models.BinaryField()
 
 
-class Compilition(models.Model):
+class Compilation(models.Model):
     class Meta:
         verbose_name = 'Подборка'
         verbose_name_plural = 'Подборки'
