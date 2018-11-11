@@ -1,6 +1,6 @@
 import datetime
 
-from django.http import HttpRequest, HttpResponseRedirect
+from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render, redirect
 
 from django.contrib.auth.models import User
@@ -24,7 +24,7 @@ def receive_token(request):
     assert request.method == 'GET'
     code = request.GET.get('code')
     if code is None:
-        raise NotImplementedError("implement error when code is not present")
+        return HttpResponseNotFound()   
     data = get_auth_info(code)
     token = data.get('access_token')
     expires_in = data.get('expires_in')
