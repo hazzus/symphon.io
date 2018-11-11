@@ -58,3 +58,7 @@ footer {
     /*background-color: #cae1cd !important;*/
     /*!*color: #000000 !important;*!*/
 }
+
+.affiche-list {
+    max-width: 60rem;
+}
