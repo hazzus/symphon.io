@@ -48,3 +48,7 @@ class FourthRecognitionTestCase(TestCase):
         result = recognize_image(image)
         self.assertEqual(result, [])
         composer.delete()
+
+class StatisticTestCase(TestCase):
+    def test_many(self):
+        composer = Composer.objects.create(nam)

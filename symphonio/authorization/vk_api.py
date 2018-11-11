@@ -25,7 +25,7 @@ def get_authorization_url():
     return url
 
 
-def get_auth_info(code: str):
+def get_auth_info(code):
     data = {
         'client_id': CLIENT_ID,
         'client_secret': SECRET_KEY,
@@ -36,15 +36,18 @@ def get_auth_info(code: str):
     return r.json()
 
 
-def get_bdate_and_sex(token: str, vk_id: str):
+def get_bdate_and_sex(token, vk_id):
     METHOD = 'users.get'
     r = requests.post(
         API_URL + METHOD, data={
             'user_ids': vk_id,
-            'fields': 'bdate,sex',
+            'fields': 'bdate,sex,first_name,last_name',
             'access_token': token,
             'v': API_VERSION,
         })
     json = r.json()
     user_row = json['response'][0]
-    return user_row.get('bdate'), user_row.get('sex')
+    return user_row.get('bdate'), \
+           user_row.get('sex'), \
+           user_row.get('first_name'), \
+           user_row.get('last_name')

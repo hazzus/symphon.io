@@ -4,21 +4,22 @@ from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import render, redirect
 
 from django.contrib.auth.models import User
+from django.contrib.auth import login
 from .models import Profile
 from .models import MALE, FEMALE, NON_DISCLOSED
 
 from .vk_api import get_authorization_url, get_auth_info, get_bdate_and_sex
 
 
-def request_token(request: HttpRequest):
-    user = request.user
+def request_token(request):
+    user= request.user
     if user.is_authenticated:
-        return render(request, 'index.html')  # TODO: already exists
+        return HttpResponseRedirect('/')
     url = get_authorization_url()
     return redirect(url)
 
 
-def receive_token(request: HttpRequest):
+def receive_token(request):
     assert not request.user.is_authenticated
     assert request.method == 'GET'
     code = request.GET.get('code')
@@ -33,20 +34,23 @@ def receive_token(request: HttpRequest):
     assert expires_in is not None
     assert vk_id is not None
     if email is None:
-        return render(request, 'index.html') # TODO: message
-    bdate, sex = get_bdate_and_sex(token, vk_id)
+        return render(request, 'failure.html', {'reason': 'Извините, не удалось войти'}) # TODO: message
+    bdate, sex, fn, ln = get_bdate_and_sex(token, vk_id)
     if bdate is None:
-        return render(request, 'index.html') # TODO: message
+        return render(request, 'failure.html', {'reason': 'Извините, не удалось войти'}) # TODO: message
     if sex is None:
         sex = 0
-    result_set = User.objects.filter(profile__vk_id=vk_id)
+    result_set = User.objects.get(profile__vk_id=vk_id)
     if result_set:
-        return render(request, 'index.html') # TODO: message
+        login(request, result_set)
+        return HttpResponseRedirect('/') # TODO: message
     age = make_age(bdate)
     gender = make_gender(sex)
     user = User()
     user.username = vk_id
     user.email = email
+    user.first_name = fn
+    user.last_name = ln
     user.save()
     user.profile.vk_id = vk_id
     user.profile.age = age
@@ -57,7 +61,7 @@ def receive_token(request: HttpRequest):
     return render(request, 'index.html')
 
 
-def make_age(bdate: str) -> int:  # format of bdate is D.M.YYYY
+def make_age(bdate):  # format of bdate is D.M.YYYY
     day, month, year = map(int, bdate.split('.'))
     date = datetime.date(year, month, day)
     today = datetime.date.today()
@@ -65,7 +69,7 @@ def make_age(bdate: str) -> int:  # format of bdate is D.M.YYYY
     return int(delta.days // 365.2425)
 
 
-def make_gender(sex: int) -> str:
+def make_gender(sex):
     if sex == 0:
         return NON_DISCLOSED
     elif sex == 1:
