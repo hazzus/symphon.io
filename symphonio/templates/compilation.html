@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12 col-lg-4 mt-4 " align="center">
+            <img class="rounded-circle mb-4 img-thumbnail" src="/media/{{ photo }}">
+            <div class="d-block">
+                <!-- Оглавление -->
+                <h2 class="d-lg-none">{{ name }}</h2>
+                <div class="mb-4">
+                    <script type="text/javascript">
+                    document.write(VK.Share.button({title: "Мне понравилась подборка {{ name }}",
+                        image: window.location.origin + "/media/{{ photo }}"},
+                        {type: "link", text: "Поделиться"}));
+                    </script>
+                </div>
+                <div class="list-group">
+                    <a href="#description" class="list-group-item list-group-item-action fg-color">Описание</a>
+                    <a href="#compositions" class="list-group-item list-group-item-action">Композиции</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-8 mt-4 mb-4">
+            <h2 class="d-none d-lg-block">{{ name }}</h2>
+            <h4>Описание</h4>
+            <div id="description" align="justify" style="padding-left: 10px;">
+                {{ description|linebreaks}}
+            </div>
+            <h4>Композиции</h4>
+            <div id="compositions" style="padding-left: 10px">
+                {% if compositions %}
+                    <ul class="list-group">
+                        {% for composition in compositions %}
+                            <li class="list-group-item">
+                            <label>{{ composition.name }}</label><br>
+                            <audio controls class="col-12">
+                                <source src="/media/{{ composition.source }}">
+                            </audio>
+                        {% endfor %}
+                        </li>
+                    </ul>
+                {% else %}
+                    <h5>Копозиций не добавлено!</h5>
+                    {% if user.is_superuser %}
+                        Вы как администратор, <a href="/admin_page">можете их добавить</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

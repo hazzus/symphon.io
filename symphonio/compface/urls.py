@@ -10,4 +10,6 @@ urlpatterns = [
     path('composer/<int:composer_id>/', views.composer, name='composer'),
     path('composers', views.composers, name='composers'),
     path('composer/<int:composer_id>/affiche/', views.affiche),
+    path('compilations', views.compilations, name='compilations'),
+    path('compilation/<int:compilation_id>', views.compilation, name='compilation'),
 ]

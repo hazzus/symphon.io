@@ -79,8 +79,10 @@ class Compilation(models.Model):
         verbose_name_plural = 'Подборки'
 
     name = models.CharField(max_length=255)
+    photo = models.ImageField()
     description = models.TextField(default="авторская подборка")
     compositions = models.ManyToManyField(Composition)
+
 
 
 class User(models.Model):

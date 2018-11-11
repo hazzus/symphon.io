@@ -7,7 +7,7 @@ from .forms import PhotoForm
 from PIL import Image
 
 from .recognize import recognize_image, recognize_url_image
-from .models import Concert, Composer, Composition
+from .models import Concert, Composer, Composition, Compilation
 
 
 def index(request):
@@ -67,3 +67,20 @@ def affiche(request, composer_id):
 def composers(request):
     comps = Composer.objects.all()
     return render(request, 'list_composers.html', {'composers': comps})
+
+
+def compilations(request):
+    comps = Compilation.objects.all()
+    return render(request, 'list_compilations.html', {'compilations': comps})
+
+def compilation(request, compilation_id):
+    try:
+        comp = Compilation.objects.get(pk=compilation_id)
+    except Composer.DoesNotExist:
+        return HttpResponseNotFound()
+    compositions = Compilation.compositions.all()
+    return render(request, 'compilation.html',
+                  {'name': comp.name,
+                   'photo': comp.photo,
+                   'description': comp.discription,
+                   'compositions': compositions})
