@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% if concerts %}
     <div class="list-group mt-2">
         {% for concert in concerts %}
             <div class="list-group-item list-group-item-action fg-color">
@@ -15,4 +16,7 @@
             </div>
         {% endfor %}
     </div>
+    {% else %}
+        <h5 class="mt-4">В ближайшее время концертов, где будут звучать произведения композитора, в Филармонии не ожидается. Приходите еще!</h5>
+    {% endif %}
 {% endblock %}
