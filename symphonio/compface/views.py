@@ -82,5 +82,5 @@ def compilation(request, compilation_id):
     return render(request, 'compilation.html',
                   {'name': comp.name,
                    'photo': comp.photo,
-                   'description': comp.discription,
+                   'description': comp.description,
                    'compositions': compositions})
