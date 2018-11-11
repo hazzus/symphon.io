@@ -47,12 +47,14 @@
                 <img src="{% static 'images/vk_logo.png' %}" height="50px">
                 <a class="btn btn-outline-primary my-2 my-sm-0" href="{% url 'request_token' %}">Войти</a>
             {% else %}
+                <div class="form-group">
                 Добро пожаловать,
                 {% if user.first_name %}
                     {{ user.first_name }}
                 {% else %}
                     id{{ user.username }}
                 {% endif %}
+                </div>
             {% endif %}
             {% if user.is_superuser %}
                 <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'admin_page' %}">Администрирование</a>
