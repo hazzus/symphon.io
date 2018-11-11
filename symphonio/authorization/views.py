@@ -20,11 +20,11 @@ def request_token(request):
 
 
 def receive_token(request):
-    assert not request.user.is_authenticated
-    assert request.method == 'GET'
+    if request.user.is_authenticated or request.method == 'GET':
+        return HttpResponseNotFound()
     code = request.GET.get('code')
     if code is None:
-        return HttpResponseNotFound()   
+        return HttpResponseNotFound()
     data = get_auth_info(code)
     token = data.get('access_token')
     expires_in = data.get('expires_in')
