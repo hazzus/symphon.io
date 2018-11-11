@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 't14bovn()#4rjjt1ctp3(#un1@*c8_b3yko3dnzfqzi0pj3$2r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False 
 
 ALLOWED_HOSTS = ['symphonio.tk']
 
@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': 'symphonio_db',
         'USER': 'dbadmin',
         'PASSWORD': 'dbadmin',
-        'HOST': '104.248.142.173',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
