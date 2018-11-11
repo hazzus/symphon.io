@@ -48,10 +48,10 @@ def receive_token(request):
         pass
     age = make_age(bdate)
     gender = make_gender(sex)
-    user = User.objects.create(username=vk_id, email=email, first_name=fn, last_name=ln)
-    user.profile.vk_id = vk_id
-    user.profile.age = age
-    user.profile.gender = gender
+    user = User(username=vk_id, email=email, first_name=fn, last_name=ln)
+    user.save()
+    profile = Profile(user=user, vk_id=vk_id, age=age, gender=gender)
+    profile.save()
     login(request, user)
     return render(request, 'index.html')
 
