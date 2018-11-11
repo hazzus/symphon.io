@@ -34,16 +34,16 @@ def receive_token(request):
     assert expires_in is not None
     assert vk_id is not None
     if email is None:
-        return render(request, 'failure.html', {'reason': 'Извините, не удалось войти'}) # TODO: message
+        return render(request, 'failure.html', {'reason': 'Извините, не удалось войти'})
     bdate, sex, fn, ln = get_bdate_and_sex(token, vk_id)
     if bdate is None:
-        return render(request, 'failure.html', {'reason': 'Извините, не удалось войти'}) # TODO: message
+        return render(request, 'failure.html', {'reason': 'Извините, не удалось войти'})
     if sex is None:
         sex = 0
     result_set = User.objects.get(profile__vk_id=vk_id)
     if result_set:
         login(request, result_set)
-        return HttpResponseRedirect('/') # TODO: message
+        return HttpResponseRedirect('/')
     age = make_age(bdate)
     gender = make_gender(sex)
     user = User()
