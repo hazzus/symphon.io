@@ -49,7 +49,9 @@ def receive_token(request):
     age = make_age(bdate)
     gender = make_gender(sex)
     user = User.objects.create(username=vk_id, email=email, first_name=fn, last_name=ln)
-    user.profile.objects.create(vk_id = vk_id, age = age, gender = gender)
+    user.profile.vk_id = vk_id
+    user.profile.age = age
+    user.profile.gender = gender
     login(request, user)
     return render(request, 'index.html')
 
