@@ -9,6 +9,8 @@ from PIL import Image
 from .recognize import recognize_image, recognize_url_image
 from .models import Concert, Composer, Composition, Compilation
 
+import math
+
 
 def index(request):
     photo_form = PhotoForm()
@@ -79,6 +81,7 @@ def compilation(request, compilation_id):
     except Composer.DoesNotExist:
         return HttpResponseNotFound()
     compositions = comp.compositions.all()
+    compositions = sorted(compositions, key=lambda x : math.fabs(request.user.profile.age - x.medium_age))
     return render(request, 'compilation.html',
                   {'name': comp.name,
                    'photo': comp.photo,
