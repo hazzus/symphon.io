@@ -12,7 +12,7 @@ from .vk_api import get_authorization_url, get_auth_info, get_bdate_and_sex
 
 
 def request_token(request):
-    user= request.user
+    user = request.user
     if user.is_authenticated:
         return HttpResponseRedirect('/')
     url = get_authorization_url()
@@ -20,7 +20,7 @@ def request_token(request):
 
 
 def receive_token(request):
-    if request.user.is_authenticated or request.method == 'GET':
+    if request.user.is_authenticated or request.method != 'GET':
         return HttpResponseNotFound()
     code = request.GET.get('code')
     if code is None:
@@ -40,24 +40,19 @@ def receive_token(request):
         return render(request, 'failure.html', {'reason': 'Извините, не удалось войти'})
     if sex is None:
         sex = 0
-    result_set = User.objects.get(profile__vk_id=vk_id)
-    if result_set:
+    try:
+        result_set = User.objects.get(username=vk_id)
         login(request, result_set)
         return HttpResponseRedirect('/')
+    except User.DoesNotExist:
+        pass
     age = make_age(bdate)
     gender = make_gender(sex)
-    user = User()
-    user.username = vk_id
-    user.email = email
-    user.first_name = fn
-    user.last_name = ln
+    user = User(username=vk_id, email=email, first_name=fn, last_name=ln)
     user.save()
-    user.profile.vk_id = vk_id
-    user.profile.age = age
-    user.profile.gender = gender
-    user.profile.save()
-    user.save()
-    request.user = user
+    profile = Profile(user=user, vk_id=vk_id, age=age, gender=gender)
+    profile.save()
+    login(request, user)
     return render(request, 'index.html')
 
 
