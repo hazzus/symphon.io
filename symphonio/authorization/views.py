@@ -42,7 +42,7 @@ def receive_token(request):
         sex = 0
     try:
         result_set = User.objects.get(username=vk_id)
-        login(request, result_set[0])
+        login(request, result_set)
         return HttpResponseRedirect('/')
     except User.DoesNotExist:
         pass
