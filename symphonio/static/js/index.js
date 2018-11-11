@@ -4,6 +4,10 @@ $("#photoField").change(function () {
     form.submit();
 });
 
+const formDesktop = $("#form");
+$("#photoField-desktop").change(function () {
+    formDesktop.submit();
+});
 
 
 cameraButton = $('#takeShot');
