@@ -63,7 +63,7 @@ class Concert(models.Model):
     place = models.CharField(max_length=255, verbose_name='Место проведения концерта')
     url = models.URLField(max_length=255, default='', verbose_name='Ссылка на анонс')
     description = models.TextField(verbose_name='Краткое описание')
-    buy_tickets_url = models.URLField(verbose_name='Ссылка на покупку билетов')
+    buy_tickets_url = models.URLField(default='', verbose_name='Ссылка на покупку билетов')
 
     def __str__(self):
         return 'Concert: of %s at %s, as described: %s' % (
