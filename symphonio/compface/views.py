@@ -81,7 +81,7 @@ def compilation(request, compilation_id):
     except Composer.DoesNotExist:
         return HttpResponseNotFound()
     compositions = comp.compositions.all()
-    compositions = sorted(compositions, key=lambda x : math.fabs(request.user.profile.age - x.medium_age))
+    compositions = sorted(compositions, key=lambda x : -math.fabs(request.user.profile.age - x.medium_age))
     return render(request, 'compilation.html',
                   {'name': comp.name,
                    'photo': comp.photo,
