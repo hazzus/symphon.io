@@ -41,7 +41,7 @@ def receive_token(request):
     if sex is None:
         sex = 0
     try:
-        result_set = User.objects.get(profile__vk_id=vk_id)
+        result_set = User.objects.get(username=vk_id)
         login(request, result_set[0])
         return HttpResponseRedirect('/')
     except User.DoesNotExist:
@@ -49,12 +49,8 @@ def receive_token(request):
     age = make_age(bdate)
     gender = make_gender(sex)
     user = User.objects.create(username=vk_id, email=email, first_name=fn, last_name=ln)
-    user.profile.vk_id = vk_id
-    user.profile.age = age
-    user.profile.gender = gender
-    user.profile.save()
-    user.save()
-    request.user = user
+    user.profile.objects.create(vk_id = vk_id, age = age, gender = gender)
+    login(request, user)
     return render(request, 'index.html')
 
 
