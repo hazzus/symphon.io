@@ -15,6 +15,13 @@ body {
     background-size: 100% auto;
 }
 
+::selection {
+  background: #ffd5af; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+  background: #ffd5af; /* Gecko Browsers */
+}
+
 .btn-circle {
     width: 70px;
     height: 70px;
