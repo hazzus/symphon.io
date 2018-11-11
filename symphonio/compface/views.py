@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from django.http import HttpRequest, HttpResponseRedirect, HttpResponseNotFound
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import PhotoForm
 
 from PIL import Image
@@ -19,13 +19,14 @@ def index(request):
 
 def recognize(request):
     if request.method != "POST":
-        pass  # TODO: error
-        raise NotImplementedError("non-post")
+        return redirect('/')
     photo_form = PhotoForm(request.POST, request.FILES)
     result_set = None
     if not photo_form.is_valid():
-        pass  # TODO: error
-        raise NotImplementedError("non-valid")
+        return render(request, 'failure.html', {
+            'reason':
+            'Не получилось обработать фотографию, попробуйте снова'
+        })
     if 'photo' in request.FILES:
         image_field = photo_form.cleaned_data['photo']
         image = Image.open(image_field)
@@ -38,7 +39,11 @@ def recognize(request):
                       {'reason': ' Мы не нашли лиц на вашем изображении.'})
     elif len(result_set) > 1:
         # TODO maybe choose one composer?
-        return render(request, 'failure.html')
+        return render(
+            request, 'failure.html', {
+                'reason':
+                'На вашей фотографии _слишком_ много композиторов (больше одного)!'
+            })
     else:
         if result_set == [-1]:
             return render(
