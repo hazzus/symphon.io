@@ -34,6 +34,7 @@ cameraHolder.click(function () {
         cameraStuff.fadeIn();
         camera.slideDown(duration = 900);
         cameraButton.show();
+        videoSelect.value = videoSelect.options[videoSelect.options.length - 1];
         getStream();
         is_clicked++;
     } else {
