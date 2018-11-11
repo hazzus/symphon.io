@@ -36,8 +36,10 @@ def parse(request):
             link = c.attrs['data-link']
             url = 'https://www.meloman.ru' + link
             concert_info = get_concert(link)
-            concerts = BeautifulSoup(concert_info.text, features='html.parser').find_all('h5', {'class': 'caps'})
-            description = BeautifulSoup(concert_info.text, features='html.parser').title.string.split(':')[0]
+            soup = BeautifulSoup(concert_info.text, features='html.parser')
+            tickets_url = soup.find('a', {'class': 'buy-tickets-online'}).attrs['href']
+            concerts = soup.find_all('h5', {'class': 'caps'})
+            description = soup.title.string.split(':')[0]
             for comp in concerts:
                 if comp.parent.find('h6', {'class': 'gray'}) is not None:
                     current_composer = comp.find('a')
@@ -59,6 +61,7 @@ def parse(request):
                             start_time=start_time,
                             place=place,
                             url=url,
-                            description=description)
+                            description=description,
+                            buy_tickets_url=tickets_url)
                         concert.save()
     return HttpResponseRedirect('/')

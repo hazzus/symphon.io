@@ -3,16 +3,16 @@
 {% block content %}
     <div class="list-group mt-2">
         {% for concert in concerts %}
-            <a class="list-group-item list-group-item-action fg-color" href="{{ concert.url }}">
+            <div class="list-group-item list-group-item-action fg-color">
 
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">{{ concert.place }}</h5>
                     <small>{{ concert.start_time }}</small>
                 </div>
                 <p class="mb-1">{{ concert.description }}</p>
-            <small><u>Подробнеe</u></small>
-
-            </a>
+            <small href="{{ concert.url }}"><u>Подробнеe</u></small>
+            <small href="{{ concert.buy_tickets_url }}"><u>Купить билеты</u></small>
+            </div>
         {% endfor %}
     </div>
 {% endblock %}
