@@ -37,7 +37,9 @@ def parse(request):
             url = 'https://www.meloman.ru' + link
             concert_info = get_concert(link)
             soup = BeautifulSoup(concert_info.text, features='html.parser')
-            tickets_url = soup.find('a', {'class': 'buy-tickets-online'}).attrs['href']
+            tickets_url = soup.find('a', {'class': 'buy-tickets-online'})
+            if tickets_url is not None:
+                tickets_url = tickets_url.attrs['href']
             concerts = soup.find_all('h5', {'class': 'caps'})
             description = soup.title.string.split(':')[0]
             for comp in concerts:
