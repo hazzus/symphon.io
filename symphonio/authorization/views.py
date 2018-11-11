@@ -12,7 +12,7 @@ from .vk_api import get_authorization_url, get_auth_info, get_bdate_and_sex
 
 
 def request_token(request):
-    user= request.user
+    user = request.user
     if user.is_authenticated:
         return HttpResponseRedirect('/')
     url = get_authorization_url()
@@ -48,12 +48,7 @@ def receive_token(request):
         pass
     age = make_age(bdate)
     gender = make_gender(sex)
-    user = User()
-    user.username = vk_id
-    user.email = email
-    user.first_name = fn
-    user.last_name = ln
-    user.save()
+    user = User.objects.create(username=vk_id, email=email, first_name=fn, last_name=ln)
     user.profile.vk_id = vk_id
     user.profile.age = age
     user.profile.gender = gender
