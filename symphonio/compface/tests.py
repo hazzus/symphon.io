@@ -4,7 +4,7 @@ from .models import Composer
 # from .trainer import add_composer_encoding
 from .recognize import recognize_image
 from django.core.files.images import ImageFile
-
+import os
 
 class FirstRecognitionTestCase(TestCase):
 
@@ -50,5 +50,21 @@ class FourthRecognitionTestCase(TestCase):
         composer.delete()
 
 class StatisticTestCase(TestCase):
-    def test_many(self):
-        composer = Composer.objects.create(nam)
+    def setUp(self):
+	Composer.objects.create(name="lol", last_name="kekov", bio="norm",
+                                           photo=ImageFile(open("compface/img/tch.jpg", "rb")))
+
+    def test_tchaik_clear_stat(self):
+        composer = Composer.objects.get(name="lol") 
+        image_dir = os.path,join('compface', 'img', 'tchaik')
+        count = len(os.listdir(image_dir))
+        success = 0
+        for image in os.listdir(image_dir):
+            result = recorgnize_image(Image.open(open(os.path.join(image_dir, image))))
+            if result == [composer.id]:
+                success += 1
+        print('Efficiency:', success / count)
+        self.assertEqual(success, count)
+            
+            
+	
