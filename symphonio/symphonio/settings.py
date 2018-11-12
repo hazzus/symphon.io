@@ -80,12 +80,8 @@ WSGI_APPLICATION = 'symphonio.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'symphonio_db',
-        'USER': 'dbadmin',
-        'PASSWORD': 'dbadmin',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3',
     }
 }
 
