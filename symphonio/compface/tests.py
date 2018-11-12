@@ -51,18 +51,20 @@ class FourthRecognitionTestCase(TestCase):
 
 class StatisticTestCase(TestCase):
     def setUp(self):
-	Composer.objects.create(name="lol", last_name="kekov", bio="norm",
+        Composer.objects.create(first_name="lol", name="kekov", bio="norm",
                                            photo=ImageFile(open("compface/img/tch.jpg", "rb")))
 
     def test_tchaik_clear_stat(self):
-        composer = Composer.objects.get(name="lol") 
-        image_dir = os.path,join('compface', 'img', 'tchaik')
+        composer = Composer.objects.get(name="kekov") 
+        image_dir = os.path.join('compface', 'img', 'tchaik')
         count = len(os.listdir(image_dir))
         success = 0
         for image in os.listdir(image_dir):
-            result = recorgnize_image(Image.open(open(os.path.join(image_dir, image))))
+            result = recognize_image(Image.open(open(os.path.join(image_dir, image), 'rb')))
             if result == [composer.id]:
                 success += 1
+            else:
+                print(image, 'not recognized')
         print('Efficiency:', success / count)
         self.assertEqual(success, count)
             
