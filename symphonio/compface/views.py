@@ -77,13 +77,18 @@ def affiche(request, composer_id):
 
 
 def composers(request):
-    comps = Composer.objects.all()
-    return render(request, 'list_composers.html', {'composers': comps})
+    compilations = Composer.objects.all()
+    return render(request, 'list_composers.html', {'composers': compilations})
 
 
 def compilations(request):
-    comps = Compilation.objects.all()
-    return render(request, 'list_compilations.html', {'compilations': comps})
+    compilations = Compilation.objects.all()
+    if request.user.is_authenticated:
+        compilations = sorted(
+            compilations,
+            key=lambda x: -math.fabs(request.user.profile.age - x.medium_age)
+        )
+    return render(request, 'list_compilations.html', {'compilations': compilations})
 
 
 def compilation(request, compilation_id):
@@ -92,11 +97,6 @@ def compilation(request, compilation_id):
     except Composer.DoesNotExist:
         return HttpResponseNotFound()
     compositions = comp.compositions.all()
-    if request.user.is_authenticated:
-        compositions = sorted(
-            compositions,
-            key=lambda x: -math.fabs(request.user.profile.age - comp.medium_age)
-        )
     return render(
         request, 'compilation.html', {
             'name': comp.name,
