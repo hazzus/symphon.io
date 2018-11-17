@@ -11,6 +11,7 @@ urldataprefix = "data:image/jpeg;base64,"
 
 known_faces = []
 ids = []
+distance = 0.6
 
 
 def recognize_from_bytes(bytearray):
@@ -36,11 +37,13 @@ def recognize_image(pil_image):
     if len(face_encodings) == 0:
         return []
     for encoding in face_encodings:
-        recognized = face_recognition.compare_faces(known_faces, encoding)
+        recognized = face_recognition.face_distance(known_faces, encoding)
+        nearest = 0
         for i in range(len(recognized)):
-            if recognized[i]:
-                result.append(ids[i])
-                break
+            if recognized[i] <= recognized[nearest]:
+                nearest = i
+        if recognized[nearest] <= distance:
+            result.append(ids[nearest])
     if len(result) == 0:
         return [-1]
     return result
