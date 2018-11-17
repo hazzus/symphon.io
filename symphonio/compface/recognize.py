@@ -21,8 +21,8 @@ def recognize_from_bytes(bytearray):
 def recognize_image(pil_image):
     """
     :returns array of composer id's
-    if there is no faces on image, returns [-1]
-    if there is no matches, returns []
+    if there is no faces on image, returns []
+    if there is no matches with targets, returns [-1]
     """
     composers = ComposerRecognitionData.objects.all()
     for composer in composers:
