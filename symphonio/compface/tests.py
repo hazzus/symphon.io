@@ -50,7 +50,14 @@ def count_matches(images_dir, composer):
         if result == [composer.id]:
             success += 1
         else:
-            print(image, 'not recognized')
+            reason = "Wrong composer"
+            if not result:
+                reason = "No faces"
+            if result == [-1]:
+                reason = "No composers"
+            if len(result) > 1:
+                reason = "Too many faces"
+            print(image, 'not recognized cause of "' + reason + '"')
     return count, success
 
 
