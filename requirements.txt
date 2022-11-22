@@ -11,7 +11,7 @@ dlib==19.16.0
 face-recognition==1.2.3
 face-recognition-models==0.3.0
 idna==2.7
-Jinja2==2.10.1
+Jinja2==2.11.3
 MarkupSafe==1.1.0
 numpy==1.22.0
 Pillow==9.3.0
